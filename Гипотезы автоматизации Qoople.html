@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гипотезы автоматизации Qoople — GO2AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS RESET & BASE ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-main: #1c1917;
+            --bg-card: #231f1c;
+            --bg-card-hover: #2a2522;
+            --bg-benchmark: #1a1614;
+            --accent: #A5521B;
+            --accent-light: #c06a2a;
+            --accent-dim: rgba(165, 82, 27, 0.2);
+            --accent-glow: rgba(165, 82, 27, 0.08);
+            --text-primary: #fafaf9;
+            --text-secondary: #a8a29e;
+            --text-muted: #78716c;
+            --border: rgba(165, 82, 27, 0.2);
+            --border-strong: rgba(165, 82, 27, 0.4);
+            --priority-critical: #dc2626;
+            --priority-critical-bg: rgba(220, 38, 38, 0.12);
+            --priority-critical-border: rgba(220, 38, 38, 0.3);
+            --priority-high: #ea580c;
+            --priority-high-bg: rgba(234, 88, 12, 0.12);
+            --priority-high-border: rgba(234, 88, 12, 0.3);
+            --priority-medium: #ca8a04;
+            --priority-medium-bg: rgba(202, 138, 4, 0.12);
+            --priority-medium-border: rgba(202, 138, 4, 0.3);
+            --priority-low: #78716c;
+            --priority-low-bg: rgba(120, 113, 108, 0.12);
+            --priority-low-border: rgba(120, 113, 108, 0.3);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            padding: 60px 0 48px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-brands {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .brand-tag {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+        }
+
+        .brand-tag.accent {
+            color: var(--accent);
+            border-color: var(--accent-dim);
+            background: var(--accent-glow);
+        }
+
+        .brand-separator {
+            color: var(--text-muted);
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .header h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .header-gradient {
+            width: 120px;
+            height: 3px;
+            margin: 0 auto 24px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 2px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ===== SECTION SPACING ===== */
+        .section {
+            padding: 48px 0;
+        }
+
+        .section + .section {
+            border-top: 1px solid var(--border);
+        }
+
+        /* ===== INTRO SECTION ===== */
+        .intro-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 48px;
+        }
+
+        .intro-box h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .intro-box p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .intro-box strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ===== SUMMARY TABLE (top map) ===== */
+        .summary-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead th {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+
+        thead th:first-child {
+            border-radius: var(--radius) 0 0 0;
+        }
+
+        thead th:last-child {
+            border-radius: 0 var(--radius) 0 0;
+        }
+
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(165, 82, 27, 0.1);
+            vertical-align: top;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            background: var(--bg-card);
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-card-hover);
+        }
+
+        tbody td:first-child {
+            font-weight: 600;
+            color: var(--accent-light);
+            white-space: nowrap;
+        }
+
+        /* ===== PRIORITY BADGES ===== */
+        .priority {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .priority-critical {
+            color: var(--priority-critical);
+            background: var(--priority-critical-bg);
+            border: 1px solid var(--priority-critical-border);
+        }
+
+        .priority-high {
+            color: var(--priority-high);
+            background: var(--priority-high-bg);
+            border: 1px solid var(--priority-high-border);
+        }
+
+        .priority-medium {
+            color: var(--priority-medium);
+            background: var(--priority-medium-bg);
+            border: 1px solid var(--priority-medium-border);
+        }
+
+        .priority-low {
+            color: var(--priority-low);
+            background: var(--priority-low-bg);
+            border: 1px solid var(--priority-low-border);
+        }
+
+        /* ===== HYPOTHESIS CARDS ===== */
+        .hypothesis-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 48px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hypothesis-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .hypothesis-card.priority-card-critical::before {
+            background: linear-gradient(90deg, var(--priority-critical), var(--accent), transparent);
+        }
+
+        .hypothesis-card.priority-card-high::before {
+            background: linear-gradient(90deg, var(--priority-high), var(--accent), transparent);
+        }
+
+        .hypothesis-card.priority-card-medium::before {
+            background: linear-gradient(90deg, var(--priority-medium), var(--accent), transparent);
+        }
+
+        .hypothesis-card.priority-card-low::before {
+            background: linear-gradient(90deg, var(--priority-low), var(--accent), transparent);
+        }
+
+        .hypothesis-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hypothesis-id {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .hypothesis-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        /* ===== SUBSECTIONS WITHIN CARDS ===== */
+        .card-section {
+            margin-bottom: 32px;
+        }
+
+        .card-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--accent-dim);
+        }
+
+        .card-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .card-section strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ===== MECHANICS LIST ===== */
+        .mechanics-list {
+            list-style: none;
+            counter-reset: mechanics;
+        }
+
+        .mechanics-list li {
+            counter-increment: mechanics;
+            padding: 12px 0 12px 48px;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            border-bottom: 1px solid rgba(165, 82, 27, 0.06);
+        }
+
+        .mechanics-list li:last-child {
+            border-bottom: none;
+        }
+
+        .mechanics-list li::before {
+            content: counter(mechanics);
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            line-height: 32px;
+        }
+
+        .mechanics-list li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ===== METRICS ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .metric-item {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-light);
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ===== BENCHMARKS ===== */
+        .benchmark-block {
+            background: var(--bg-benchmark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 28px;
+            margin-top: 4px;
+        }
+
+        .benchmark-block h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+        }
+
+        .benchmark-figures {
+            margin-bottom: 24px;
+        }
+
+        .benchmark-figures ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benchmark-figures li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(165, 82, 27, 0.06);
+        }
+
+        .benchmark-figures li:last-child {
+            border-bottom: none;
+        }
+
+        .benchmark-figures li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 16px;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .benchmark-figures li strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .benchmark-cases {
+            margin-bottom: 24px;
+        }
+
+        .benchmark-cases ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benchmark-cases li {
+            padding: 10px 16px;
+            margin-bottom: 8px;
+            background: rgba(165, 82, 27, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .benchmark-cases li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ===== SOURCES (collapsible) ===== */
+        .sources-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            padding: 10px 16px;
+            font-size: 13px;
+            font-family: inherit;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .sources-toggle:hover {
+            color: var(--text-secondary);
+            border-color: var(--border-strong);
+        }
+
+        .sources-toggle .arrow {
+            transition: transform 0.3s;
+            font-size: 11px;
+        }
+
+        .sources-toggle.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .sources-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .sources-content.open {
+            max-height: 500px;
+        }
+
+        .sources-content ul {
+            list-style: none;
+            padding: 12px 0 0;
+        }
+
+        .sources-content li {
+            font-size: 13px;
+            color: var(--text-muted);
+            padding: 4px 0;
+            line-height: 1.5;
+        }
+
+        .sources-content li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-muted);
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .sources-content li a:hover {
+            color: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline-section {
+            padding: 48px 0;
+        }
+
+        .timeline-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+            margin-bottom: 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .timeline-col {
+            border-right: 1px solid var(--border);
+            min-height: 100%;
+        }
+
+        .timeline-col:last-child {
+            border-right: none;
+        }
+
+        .timeline-month {
+            background: var(--accent);
+            color: #fff;
+            padding: 12px 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        .timeline-items {
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 120px;
+            background: var(--bg-card);
+        }
+
+        .timeline-item {
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .timeline-item.t-critical {
+            background: var(--priority-critical-bg);
+            border: 1px solid var(--priority-critical-border);
+            color: var(--priority-critical);
+        }
+
+        .timeline-item.t-high {
+            background: var(--priority-high-bg);
+            border: 1px solid var(--priority-high-border);
+            color: var(--priority-high);
+        }
+
+        .timeline-item.t-medium {
+            background: var(--priority-medium-bg);
+            border: 1px solid var(--priority-medium-border);
+            color: var(--priority-medium);
+        }
+
+        .timeline-item.t-low {
+            background: var(--priority-low-bg);
+            border: 1px solid var(--priority-low-border);
+            color: var(--priority-low);
+        }
+
+        .timeline-logic {
+            margin-top: 24px;
+        }
+
+        .timeline-logic h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .timeline-logic ol {
+            list-style: none;
+            counter-reset: logic;
+            padding: 0;
+        }
+
+        .timeline-logic li {
+            counter-increment: logic;
+            padding: 8px 0 8px 36px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .timeline-logic li::before {
+            content: counter(logic);
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-dim);
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            line-height: 24px;
+        }
+
+        .timeline-logic li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ===== FINAL SUMMARY TABLE ===== */
+        .final-summary {
+            padding: 48px 0 24px;
+        }
+
+        .final-summary h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .final-table-wrapper {
+            border-radius: var(--radius);
+            border: 2px solid var(--accent);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg), 0 0 60px rgba(165, 82, 27, 0.08);
+        }
+
+        .final-table-wrapper table {
+            font-size: 15px;
+        }
+
+        .final-table-wrapper thead th {
+            padding: 16px 20px;
+            font-size: 14px;
+        }
+
+        .final-table-wrapper tbody td {
+            padding: 14px 20px;
+        }
+
+        .final-table-wrapper tbody td:last-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .final-note {
+            margin-top: 20px;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .final-note strong {
+            color: var(--text-secondary);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 48px 0;
+            margin-top: 48px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .footer-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-contacts a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-muted);
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .footer-contacts a:hover {
+            color: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        .footer-copyright {
+            margin-top: 24px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== NAV / TOC ===== */
+        .toc {
+            margin-bottom: 48px;
+        }
+
+        .toc-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 8px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .toc-item:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+            border-color: var(--border-strong);
+        }
+
+        .toc-item .toc-id {
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 28px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 0 32px;
+            }
+
+            .hypothesis-card {
+                padding: 24px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-col {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .timeline-col:last-child {
+                border-bottom: none;
+            }
+
+            .timeline-items {
+                min-height: auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .timeline-item {
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .header-brands {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .brand-separator {
+                display: none;
+            }
+
+            .benchmark-block {
+                padding: 20px;
+            }
+
+            .footer-contacts {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            body {
+                background: #fff;
+                color: #1a1a1a;
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .header {
+                padding: 20pt 0;
+            }
+
+            .header h1 {
+                color: #1a1a1a;
+                font-size: 24pt;
+            }
+
+            .header-gradient {
+                background: #A5521B;
+            }
+
+            .header-subtitle {
+                color: #555;
+            }
+
+            .brand-tag {
+                border-color: #ccc;
+                color: #555;
+            }
+
+            .brand-tag.accent {
+                color: #A5521B;
+                border-color: #A5521B;
+                background: none;
+            }
+
+            .hypothesis-card {
+                background: #fff;
+                border: 1px solid #ddd;
+                box-shadow: none;
+                page-break-before: always;
+                padding: 24pt;
+                margin-bottom: 0;
+            }
+
+            .hypothesis-card::before {
+                background: #A5521B;
+            }
+
+            .hypothesis-card:first-of-type {
+                page-break-before: auto;
+            }
+
+            .card-section-title {
+                color: #A5521B;
+                border-bottom-color: #ddd;
+            }
+
+            .hypothesis-id {
+                color: #A5521B;
+            }
+
+            .hypothesis-title {
+                color: #1a1a1a;
+            }
+
+            .card-section p,
+            .mechanics-list li,
+            .benchmark-figures li,
+            .benchmark-cases li {
+                color: #333;
+            }
+
+            .mechanics-list li::before {
+                background: #f5f0ec;
+                border-color: #A5521B;
+                color: #A5521B;
+            }
+
+            .metric-item {
+                background: #f9f9f9;
+                border-color: #ddd;
+            }
+
+            .metric-value {
+                color: #A5521B;
+            }
+
+            .metric-label {
+                color: #666;
+            }
+
+            .benchmark-block {
+                background: #f9f7f5;
+                border-color: #ddd;
+            }
+
+            .benchmark-block h4 {
+                color: #A5521B;
+            }
+
+            .benchmark-cases li {
+                background: #f5f0ec;
+                border-left-color: #A5521B;
+            }
+
+            .sources-content {
+                max-height: none !important;
+            }
+
+            .sources-toggle {
+                display: none;
+            }
+
+            .sources-content li {
+                color: #888;
+            }
+
+            thead th {
+                background: #A5521B !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            tbody tr {
+                background: #fff;
+            }
+
+            tbody td {
+                color: #333;
+                border-bottom-color: #eee;
+            }
+
+            tbody td:first-child {
+                color: #A5521B;
+            }
+
+            .priority {
+                border: 1px solid currentColor;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .intro-box {
+                background: #f9f7f5;
+                border-color: #ddd;
+            }
+
+            .intro-box h2 {
+                color: #A5521B;
+            }
+
+            .intro-box p {
+                color: #333;
+            }
+
+            .summary-section h2,
+            .timeline-section h2,
+            .final-summary h2 {
+                color: #A5521B;
+            }
+
+            .toc {
+                display: none;
+            }
+
+            .timeline-grid {
+                border-color: #ddd;
+            }
+
+            .timeline-col {
+                border-right-color: #ddd;
+            }
+
+            .timeline-month {
+                background: #A5521B !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .timeline-items {
+                background: #fff;
+            }
+
+            .timeline-item {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .timeline-logic li {
+                color: #333;
+            }
+
+            .timeline-logic li::before {
+                color: #A5521B;
+                border-color: #A5521B;
+            }
+
+            .final-table-wrapper {
+                border-color: #A5521B;
+                box-shadow: none;
+            }
+
+            .final-note {
+                background: #f9f9f9;
+                border-color: #ddd;
+                color: #666;
+            }
+
+            .footer {
+                border-top-color: #ddd;
+            }
+
+            .footer-brand {
+                color: #A5521B;
+            }
+
+            .footer-tagline,
+            .footer-contacts,
+            .footer-copyright {
+                color: #888;
+            }
+
+            .footer-contacts a {
+                color: #555;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="container">
+    <header class="header">
+        <div class="header-brands">
+            <span class="brand-tag accent">GO2AI</span>
+            <span class="brand-separator">&times;</span>
+            <span class="brand-tag">Qoople</span>
+        </div>
+        <h1>Гипотезы автоматизации Qoople</h1>
+        <div class="header-gradient"></div>
+        <p class="header-subtitle">На основе маркетинговой стратегии, бренд-платформы и саммари встречи с Антоном Бабчихиным</p>
+    </header>
+
+    <!-- ===== PILOT APPROACH ===== -->
+    <div class="intro-box">
+        <h2>Подход к пилотам</h2>
+        <p>Средний чек инвестиций в пилот — <strong>250--500 тыс. руб.</strong> в зависимости от сложности процесса и количества субагентов в пайплайне.</p>
+        <p style="margin-top: 12px;">Для каждого пилота определяются целевые метрики и расчёт влияния на денежный поток. Успешные пилоты масштабируются.</p>
+    </div>
+
+    <!-- ===== PROBLEM MAP TABLE ===== -->
+    <section class="section summary-section">
+        <h2>Карта проблем &rarr; гипотез</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Проблема бизнеса</th>
+                        <th>Гипотеза</th>
+                        <th>Приоритет</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>H1</td>
+                        <td>Нет канала привлечения инвесторов</td>
+                        <td>AI email-аутрич</td>
+                        <td><span class="priority priority-critical">Критический</span></td>
+                    </tr>
+                    <tr>
+                        <td>H2</td>
+                        <td>Потеря лидов из-за человеческого фактора</td>
+                        <td>AI-квалификатор входящих</td>
+                        <td><span class="priority priority-critical">Критический</span></td>
+                    </tr>
+                    <tr>
+                        <td>H3</td>
+                        <td>Загрузка в несезон 35--40% вместо 55%</td>
+                        <td>AI revenue management</td>
+                        <td><span class="priority priority-high">Высокий</span></td>
+                    </tr>
+                    <tr>
+                        <td>H4</td>
+                        <td>Консьерж-сервис вручную, апсейлы теряются</td>
+                        <td>AI-консьерж для гостей</td>
+                        <td><span class="priority priority-high">Высокий</span></td>
+                    </tr>
+                    <tr>
+                        <td>H5</td>
+                        <td>Нет контроля качества коммуникаций</td>
+                        <td>AI-аудитор разговоров</td>
+                        <td><span class="priority priority-medium">Средний</span></td>
+                    </tr>
+                    <tr>
+                        <td>H6</td>
+                        <td>Контент нужен на 3 языках для 30+ площадок</td>
+                        <td>AI-генератор контента</td>
+                        <td><span class="priority priority-medium">Средний</span></td>
+                    </tr>
+                    <tr>
+                        <td>H7</td>
+                        <td>Партнёрская сеть не систематизирована</td>
+                        <td>AI-скоринг партнёров</td>
+                        <td><span class="priority priority-low">Низкий</span></td>
+                    </tr>
+                    <tr>
+                        <td>H8</td>
+                        <td>Собственники не понимают свои данные, отчёты вручную</td>
+                        <td>AI-аналитик для собственников</td>
+                        <td><span class="priority priority-medium">Средний</span></td>
+                    </tr>
+                    <tr>
+                        <td>H9</td>
+                        <td>Бонусная система уязвима для мошенничества</td>
+                        <td>AI-антифрод Qoople Points</td>
+                        <td><span class="priority priority-low">Низкий</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ===== TABLE OF CONTENTS ===== -->
+    <nav class="toc">
+        <div class="toc-title">Навигация по гипотезам</div>
+        <div class="toc-grid">
+            <a href="#h1" class="toc-item"><span class="toc-id">H1</span> AI email-аутрич для инвесторов</a>
+            <a href="#h2" class="toc-item"><span class="toc-id">H2</span> AI-квалификатор входящих лидов</a>
+            <a href="#h3" class="toc-item"><span class="toc-id">H3</span> AI revenue management</a>
+            <a href="#h4" class="toc-item"><span class="toc-id">H4</span> AI-консьерж для гостей</a>
+            <a href="#h5" class="toc-item"><span class="toc-id">H5</span> AI-аудитор коммуникаций</a>
+            <a href="#h6" class="toc-item"><span class="toc-id">H6</span> AI-генератор контента</a>
+            <a href="#h7" class="toc-item"><span class="toc-id">H7</span> AI-скоринг партнёров</a>
+            <a href="#h8" class="toc-item"><span class="toc-id">H8</span> AI-аналитик собственников</a>
+            <a href="#h9" class="toc-item"><span class="toc-id">H9</span> AI-антифрод Qoople Points</a>
+        </div>
+    </nav>
+
+    <!-- ===== H1 ===== -->
+    <article class="hypothesis-card priority-card-critical" id="h1">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H1</div>
+                <h2 class="hypothesis-title">AI email-аутрич для привлечения инвесторов</h2>
+            </div>
+            <span class="priority priority-critical">Критический</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Контекстная реклама убыточна. Парсинг + колл-центр = 0% квалифицированных лидов. Контент-маркетинг работает, но цикл 6+ месяцев. Нужно 2 продажи/мес при среднем чеке ~&euro;200 тыс.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>Персонализированный AI email-аутрич на основе обогащённых данных о потенциальных инвесторах даст конверсию в квалифицированный лид 2--5% (vs 0% у парсинг+колл-центр).</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Сбор базы:</strong> LinkedIn, TenChat -- предприниматели и топ-менеджеры из Москвы, СПб, городов-миллионников с доходом от &euro;150 тыс.</li>
+                <li><strong>Обогащение:</strong> должность, компания, обороты, финансовые показатели, связи с Турцией (поездки, упоминания)</li>
+                <li><strong>AI-персонализация:</strong> каждое письмо строится на контексте получателя -- триггеры (расширение бизнеса, релокация, инвестиционная активность)</li>
+                <li><strong>Цепочка:</strong> 3--4 касания с разным углом (доходность, диверсификация, гражданство, &laquo;запасной аэродром&raquo;)</li>
+                <li><strong>Квалификация:</strong> AI оценивает ответы и передаёт SQL в отдел продаж</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">&gt; 40%</div>
+                    <div class="metric-label">Open Rate</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&gt; 5%</div>
+                    <div class="metric-label">Reply Rate</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&ge; 10/мес</div>
+                    <div class="metric-label">SQL (Sales Qualified Leads)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&ge; 20%</div>
+                    <div class="metric-label">Конверсия SQL &rarr; сделка (= 2 сделки/мес)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>Email ROI: <strong>$36--40 на каждый $1</strong> вложенных (vs. PPC ROAS <strong>1.4x</strong> в сфере недвижимости -- email эффективнее в 10 раз)</li>
+                        <li>Персонализация <strong>удваивает</strong> reply rate: с 9% до 18%</li>
+                        <li>Платформа Instantly.ai показывает open rate <strong>61%</strong> и reply rate <strong>17.4%</strong> у лучших кампаний</li>
+                        <li>Pre-qualified конверсия: <strong>14%</strong> при обогащении данных по 20+ параметрам</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>Кампания с локальными историями успеха</strong> (недвижимость): reply rate <strong>40%</strong>, закрыто <strong>31 сделка</strong>, acceptance rate выше на <strong>59%</strong> по сравнению с generic-письмами</li>
+                        <li><strong>Guesty</strong> (proptech, управление краткосрочной арендой): пользователи выросли в среднем на <strong>24.6%</strong> по портфелю; переход с конкурентов дал <strong>+17% дохода на листинг</strong> за 12 месяцев</li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>Real Estate Email Marketing Metrics: 2025 Benchmarks & KPIs -- Propphy</li>
+                        <li>2025 Cold Email Statistics: B2B Benchmarks -- Martal Group</li>
+                        <li>Average Cold Email Response Rates 2026 -- Mailforge</li>
+                        <li>Instantly vs Smartlead vs Lemlist: Pipeline per Dollar -- Instantly.ai</li>
+                        <li>Email Marketing ROI Statistics 2026 -- EmailMonday</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H2 ===== -->
+    <article class="hypothesis-card priority-card-critical" id="h2">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H2</div>
+                <h2 class="hypothesis-title">AI-квалификатор входящих лидов (антипотеря)</h2>
+            </div>
+            <span class="priority priority-critical">Критический</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Упущена сделка на ~$20 тыс. -- менеджер не ответил. Удалили сообщение с ником блогера -- блогер ждал неделю. Заявки из WhatsApp, Instagram, сайта не консолидируются. При росте до 250 объектов проблема усилится кратно.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>AI-бот на первой линии, подключённый ко всем каналам, сократит время ответа до &lt;&nbsp;2 минут и снизит потерю лидов с текущих ~15--20% до &lt;&nbsp;3%.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Мультиканальный приём:</strong> WhatsApp Business API, Instagram DM, Telegram, веб-чат, email -- все входящие поступают в единый хаб</li>
+                <li><strong>Мгновенный ответ:</strong> AI отвечает за &lt;&nbsp;2 мин на любом языке (рус/англ/тур), квалифицирует запрос</li>
+                <li><strong>Маршрутизация:</strong> определяет тип запроса (аренда / инвестор / собственник / партнёр) и передаёт нужному менеджеру с контекстом</li>
+                <li><strong>Фиксация:</strong> каждое обращение логируется (даже если менеджер не ответил -- бот продолжает вести диалог)</li>
+                <li><strong>Эскалация:</strong> если менеджер не подхватил за 15 мин -- уведомление руководителю</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">&lt; 2 мин</div>
+                    <div class="metric-label">Время первого ответа (сейчас -- часы/дни)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&lt; 3%</div>
+                    <div class="metric-label">Потеря лидов (сейчас ~15--20%)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&ge; 80%</div>
+                    <div class="metric-label">Лидов корректно маршрутизированы</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>&laquo;Правило 5 минут&raquo; (MIT): ответ за 5 мин = в <strong>100 раз</strong> выше вероятность конверсии vs 30 мин; в <strong>21 раз</strong> выше шанс квалифицировать лид</li>
+                        <li><strong>78%</strong> покупателей недвижимости работают с первым ответившим агентом</li>
+                        <li>Средний response time в отрасли: <strong>917 минут</strong> (15+ часов)</li>
+                        <li><strong>48%</strong> входящих запросов в сфере недвижимости остаются без ответа</li>
+                        <li>Ответ за <strong>&lt;&nbsp;1 мин</strong> повышает вероятность конверсии на <strong>391%</strong></li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>Structurely &laquo;Aisa Holmes&raquo;</strong> (AI-бот для RE/MAX): удвоил объём лидов и поднял конверсию на <strong>+233%</strong></li>
+                        <li><strong>Choices</strong> (недвижимость/аренда, платформа Landbot): ~5 000 чатов, <strong>40%+</strong> конверсия в лид, CPL <strong>&euro;1.71</strong></li>
+                        <li><strong>Notar</strong> (недвижимость, Скандинавия): <strong>50%</strong> взаимодействий с чат-ботом привели к бронированию или квалифицированному лиду</li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>MIT Lead Response Management Study -- MIT / InsideSales</li>
+                        <li>Fast Lead Response Times: The 5-Minute Rule -- PrimeStreet</li>
+                        <li>25 Eye-Opening Speed to Lead Statistics -- Verse.ai</li>
+                        <li>Choices & Landbot Case Study -- Landbot</li>
+                        <li>Real estate case study: AI agents bring 29% of all website requests -- Dashly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H3 ===== -->
+    <article class="hypothesis-card priority-card-high" id="h3">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H3</div>
+                <h2 class="hypothesis-title">AI revenue management (динамическое ценообразование)</h2>
+            </div>
+            <span class="priority priority-high">Высокий</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Загрузка в несезон 35--40% при целевой 55%. При 100 объектах потеря 15 п.п. загрузки = ~&euro;45 тыс./мес упущенного дохода. При 250 объектах -- ~&euro;112 тыс./мес. Маркетинговая стратегия описывает необходимость динамического ценообразования как у Missafir, но реализации нет.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>AI-модель динамического ценообразования, учитывающая сезонность, спрос на 35 площадках, события в Аланье и конкурентные ставки, увеличит загрузку в несезон на 10--15 п.п. и средний RevPAR на 15--20%.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Сбор данных:</strong> парсинг цен конкурентов на Airbnb/Booking, исторические данные бронирований Qoople, календарь событий Аланьи, погодные данные</li>
+                <li><strong>AI-модель:</strong> прогноз спроса на 14--30 дней вперёд, рекомендации по ставкам для каждого объекта</li>
+                <li><strong>Автоматическое применение:</strong> интеграция с Channel Manager -- цены обновляются 1--2 раза в сутки</li>
+                <li><strong>Тактики несезона:</strong> автоматические скидки на длительное проживание (10% от 7 ночей, 25% от месяца), early bird, last minute</li>
+                <li><strong>Dashboard для revenue-менеджера:</strong> рекомендации, override, аналитика</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">50--55%</div>
+                    <div class="metric-label">Загрузка в несезон (с текущих 35--40%)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+15--20%</div>
+                    <div class="metric-label">RevPAR рост</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+&euro;30--45 тыс.</div>
+                    <div class="metric-label">Дополнительный доход/мес при 100 объектах</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>Динамическое ценообразование даёт <strong>+10--40% дохода</strong> ежегодно</li>
+                        <li>RevPAR рост: <strong>+10.7%</strong> в среднем по индустрии при внедрении AI-pricing</li>
+                        <li>Стратегическое снижение ставки на <strong>15%</strong> в низкий сезон повышает загрузку с <strong>40% до 65%</strong></li>
+                        <li><strong>40%+</strong> профессионалов краткосрочной аренды уже используют AI для оптимизации ставок</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>PriceLabs + Air Rental</strong> (Монпелье, 170+ объектов): загрузка <strong>90%</strong>, прибыль <strong>+15%</strong>; отдельные пользователи сообщают о росте дохода на <strong>35--60%</strong></li>
+                        <li><strong>Beyond Pricing + Wonder Where To Stay</strong>: ADR <strong>+22%</strong>, загрузка <strong>94%</strong></li>
+                        <li><strong>Wheelhouse</strong>: пользователи сообщают о росте прибыли до <strong>+40%</strong></li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>PriceLabs: Air Rental Case Study -- PriceLabs</li>
+                        <li>Beyond Pricing: Customer Stories -- Beyond Pricing</li>
+                        <li>2025 Study: Real Data on Dynamic Pricing for Vacation Rentals -- Your.Rentals</li>
+                        <li>Dynamic Pricing Revenue Impact -- Vacation Rentals 2026 -- AvantStay</li>
+                        <li>Vacation Rental Pricing Factors -- Hostaway</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H4 ===== -->
+    <article class="hypothesis-card priority-card-high" id="h4">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H4</div>
+                <h2 class="hypothesis-title">AI-консьерж для гостей (апсейл-машина)</h2>
+            </div>
+            <span class="priority priority-high">Высокий</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Консьерж-сервис ведётся вручную. Менеджеры перегружены в сезон. Апсейлы теряются. Средний чек аренды &euro;600, потенциал x2 через допуслуги. При 100 объектах и загрузке 70% = ~70 заездов/мес. Если каждому предложить допуслуги -- потенциал +&euro;42 тыс./мес.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>AI-консьерж в WhatsApp, который автоматически ведёт гостя от момента бронирования до выезда, увеличит долю апсейла с текущих ~10% до 40--50% и разгрузит менеджеров на 60--70% по типовым запросам.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Пре-arrival (за 3 дня):</strong> автоматическое приветствие, предложение трансфера, аренды авто, заказа продуктов</li>
+                <li><strong>Check-in:</strong> инструкция по заселению, код замка, Wi-Fi, правила дома, карта района</li>
+                <li><strong>Во время проживания:</strong> проактивные предложения -- экскурсии, рестораны (партнёрские), спа, аренда яхты; ответы на типовые вопросы (аптека, магазин, такси)</li>
+                <li><strong>Check-out:</strong> напоминание, просьба об отзыве (Airbnb/Booking), промокод на следующий визит</li>
+                <li><strong>Мультиязычность:</strong> русский, английский, турецкий, немецкий -- автоматический выбор по профилю гостя</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">40--50%</div>
+                    <div class="metric-label">Доля гостей с доп. услугой (с ~10%)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+&euro;200--300</div>
+                    <div class="metric-label">Средний чек допуслуг на бронирование</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">-60--70%</div>
+                    <div class="metric-label">Время менеджера на типовые запросы</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+0.2--0.3</div>
+                    <div class="metric-label">Рейтинг гостевого опыта (Booking/Airbnb)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>AI-боты обрабатывают <strong>70--90%</strong> типовых гостевых запросов без участия менеджера</li>
+                        <li>Ручная переписка с гостями = <strong>40--60%</strong> трудозатрат управляющих компаний</li>
+                        <li><strong>65%</strong> гостей готовы платить больше за AI-персонализированный опыт</li>
+                        <li><strong>88%</strong> гостей предпочитают self-service цифровые транзакции переговорам с хостом</li>
+                        <li>Проживание = только <strong>30%</strong> бюджета путешественника -- <strong>70%</strong> остаётся на допуслуги</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>Duve + White Villas</strong>: ROI <strong>5 523%</strong> через проактивный upselling в guest app</li>
+                        <li><strong>Duve + Your Host Helper</strong>: ROI <strong>625%</strong> с upselling-инструментами</li>
+                        <li><strong>Akia + Mohicans Treehouse Resort</strong>: <strong>+$1 000/мес</strong> upsell-дохода через кастомные Mini Apps</li>
+                        <li><strong>Akia + Villa Toscana</strong>: автоматизация early check-in/late checkout = <strong>+$1 100/мес</strong></li>
+                        <li><strong>YourWelcome</strong> (15 000+ объектов): ранний check-in = <strong>$52/транзакция</strong> в среднем</li>
+                        <li><strong>Conduit</strong> (горный лодж): <strong>+$40 на бронирование</strong> с автоматизированными upsell-потоками</li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>Duve Case Studies -- Duve</li>
+                        <li>Akia Case Study: Increased Hotel Revenue Through Guest Messaging -- Akia</li>
+                        <li>YourWelcome: Digital Guidebook -- The Key to Upselling -- YourWelcome</li>
+                        <li>AI in the Vacation Rental Industry Statistics -- ZipDo</li>
+                        <li>The Economics of Vacation Rental Upselling -- Enso Connect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H5 ===== -->
+    <article class="hypothesis-card priority-card-medium" id="h5">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H5</div>
+                <h2 class="hypothesis-title">AI-аудитор качества коммуникаций менеджеров</h2>
+            </div>
+            <span class="priority priority-medium">Средний</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Нет системного контроля. Проверяются выборочные разговоры. Нет стандартов. При масштабировании до 250+ объектов проблема станет критической.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>Автоматический AI-анализ 100% коммуникаций (звонки, чаты) повысит конверсию лид&rarr;сделка на 10--15% за счёт выявления системных ошибок и обучения менеджеров.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Подключение каналов:</strong> запись звонков (IP-телефония), экспорт чатов (WhatsApp, Instagram, Telegram)</li>
+                <li><strong>AI-анализ каждого диалога:</strong> скорость ответа, соблюдение скриптов, наличие апсейла, эмпатия, решение проблемы, передача контактов</li>
+                <li><strong>Скоринг менеджера:</strong> еженедельный рейтинг, тренды, зоны роста</li>
+                <li><strong>Алерты:</strong> критические ситуации (хамство, потеря лида, отсутствие ответа) -- мгновенное уведомление руководителю</li>
+                <li><strong>Автоматические рекомендации:</strong> персональные советы каждому менеджеру на основе его слабых мест</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">Охват контроля (с текущих ~5--10%)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&lt; 1 часа</div>
+                    <div class="metric-label">Время реакции на критические ошибки</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+10--15%</div>
+                    <div class="metric-label">Конверсия лид &rarr; сделка</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>AI QA даёт <strong>+12--18%</strong> CSAT, <strong>-25--30%</strong> затрат на контроль качества</li>
+                        <li>Снижение compliance-инцидентов на <strong>40--50%</strong> в первый год</li>
+                        <li>First-call resolution: <strong>+15--20%</strong>; эскалации: <strong>-20--25%</strong></li>
+                        <li>ROI внедрения AI QA: <strong>150--300%</strong> за 3 года, окупаемость за <strong>8--14 месяцев</strong></li>
+                        <li><strong>76%</strong> компаний уже встроили conversation intelligence</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>Gong + Cloudinary</strong>: конверсия встреч <strong>+29%</strong>, время онбординга SDR <strong>-33%</strong></li>
+                        <li><strong>Gong + Mintel</strong>: win rate <strong>+34%</strong> через культуру коучинга на основе AI-аналитики</li>
+                        <li><strong>Gong + Iron Mountain</strong>: доля новых менеджеров, достигающих KPI -- с <strong>9% до 60%</strong> (рост в <strong>6.6 раз</strong>)</li>
+                        <li><strong>Chorus.ai + MongoDB</strong>: выполнение квоты <strong>+50%</strong>, онбординг <strong>-30%</strong></li>
+                        <li><strong>Observe.AI + Pearson/Concentrix</strong>: план $2.2M &rarr; факт <strong>$2.7M</strong> (+23% дохода)</li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>Gong Case Studies -- Gong.io</li>
+                        <li>Observe.AI Customer Stories -- Observe.AI</li>
+                        <li>Call Center Auto QA -- SQM Group</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H6 ===== -->
+    <article class="hypothesis-card priority-card-medium" id="h6">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H6</div>
+                <h2 class="hypothesis-title">AI-генератор мультиязычного контента</h2>
+            </div>
+            <span class="priority priority-medium">Средний</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Стратегия требует контент на 3 языках (рус/англ/тур) для 30+ площадок. Нужны описания объектов, посты для Instagram/TikTok/YouTube, email-цепочки для собственников и гостей, статьи для SEO. Одного контент-менеджера не хватит.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>AI-конвейер по генерации контента на основе данных объекта (фото, характеристики, локация) сократит время создания листинга с 2--3 часов до 15--20 минут и обеспечит единый стандарт качества на всех площадках.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Листинги:</strong> менеджер загружает фото и параметры объекта &rarr; AI генерирует описания для Airbnb, Booking, Avito, Sahibinden в формате и тональности каждой площадки, на нужном языке</li>
+                <li><strong>Соцсети:</strong> AI создаёт драфты постов (B2B для инвесторов, B2C для туристов) на основе контент-плана из стратегии</li>
+                <li><strong>Email-цепочки:</strong> автоматическая генерация и A/B-тестирование вариантов писем для воронок (собственники, гости)</li>
+                <li><strong>SEO-контент:</strong> статьи для блога на сайте (рус/англ) по темам из стратегии</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">15--20 мин</div>
+                    <div class="metric-label">Время создания листинга (с 2--3 часов)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">x3--5</div>
+                    <div class="metric-label">Количество листингов/мес</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">3 языка</div>
+                    <div class="metric-label">Охват без найма переводчиков</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>AI сокращает время создания листинга с <strong>30--60 мин</strong> до <strong>нескольких секунд</strong> (экономия <strong>80%</strong> времени)</li>
+                        <li><strong>46%</strong> агентов по недвижимости уже используют AI-генерируемый контент</li>
+                        <li>AI-оптимизация Airbnb-листингов: конверсия <strong>+125%</strong>, видимость <strong>+140%</strong>, просмотры страниц <strong>+250%</strong></li>
+                        <li>Оптимизированные листинги получают на <strong>47%</strong> больше запросов на показ</li>
+                        <li><strong>86%</strong> путешественников некомфортно бронируют жильё на неродном языке</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>KABIN</strong> (Канада, платформа Lodgify): <strong>$200 000 CAD</strong> дохода за первый год, <strong>90%</strong> бронирований пришли через мультиязычный сайт</li>
+                        <li><strong>ListingAI</strong>: вырос до <strong>31 000+ пользователей</strong> в 20+ странах, сгенерировано <strong>59 000+ листингов</strong></li>
+                        <li><strong>PriceLabs Listing Optimizer</strong>: анализ <strong>10 000+ листингов</strong> показал, что <strong>88%</strong> имели проблемы; после оптимизации -- рост позиций в поиске на <strong>25%+</strong></li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>Hostaway, PriceLabs, OptimizeMyAirbnb, Lodgify, Netguru</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H7 ===== -->
+    <article class="hypothesis-card priority-card-low" id="h7">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H7</div>
+                <h2 class="hypothesis-title">AI-скоринг и управление партнёрской сетью</h2>
+            </div>
+            <span class="priority priority-low">Низкий</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Стратегия описывает 6+ типов партнёров (турагентства, агентства недвижимости, застройщики, отели, сервисы для экспатов, локальный бизнес), но системы управления нет. Партнёрства формируются хаотично.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>AI-система скоринга партнёров по потенциалу и автоматизация коммуникаций с ними увеличит поток лидов от партнёров на 30--50%.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>База партнёров:</strong> сбор и скоринг потенциальных партнёров по открытым данным</li>
+                <li><strong>Автоматический аутрич:</strong> персонализированные предложения о сотрудничестве</li>
+                <li><strong>Трекинг:</strong> отслеживание лидов от каждого партнёра, автоматический расчёт комиссий</li>
+                <li><strong>Nurturing:</strong> регулярные обновления партнёрам (новые объекты, акции, результаты)</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">+30--50%</div>
+                    <div class="metric-label">Количество активных партнёров</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">15--20%</div>
+                    <div class="metric-label">Доля лидов от партнёров в общем потоке</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>Распределение каналов в vacation rental: Airbnb <strong>46%</strong>, прямые бронирования <strong>34%</strong>, прочие каналы <strong>20%</strong></li>
+                        <li>Прямые бронирования: <strong>100%</strong> дохода; OTA: <strong>80--85%</strong> (комиссия <strong>15--20%</strong>)</li>
+                        <li><strong>37.5%</strong> операторов краткосрочной аренды отметили рост прямых бронирований</li>
+                        <li>Affiliate-маркетинг обеспечивает <strong>16%</strong> всех интернет-заказов в США</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>Booking.com affiliate</strong>: комиссия от <strong>25%</strong> до <strong>35%</strong></li>
+                        <li><strong>Hostaway referral</strong>: <strong>$300</strong> за каждого привлечённого клиента</li>
+                        <li><strong>KABIN (Lodgify)</strong>: 90% бронирований через собственный сайт</li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>StayFi, Rentals United, Skift Research, Hospitable, Enso Connect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H8 ===== -->
+    <article class="hypothesis-card priority-card-medium" id="h8">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H8</div>
+                <h2 class="hypothesis-title">AI-аналитик для собственников (интеллектуальный дашборд)</h2>
+            </div>
+            <span class="priority priority-medium">Средний</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>Собственник видит в личном кабинете цифры (доход, загрузка, OSPC), но не понимает, что с ними делать. Отчёты формируются вручную менеджерами. При 100 объектах и 50+ собственниках -- это 50+ ежемесячных отчётов, каждый по 30--60 минут.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>AI-аналитик, автоматически генерирующий текстовые саммари, прогнозы и рекомендации для каждого собственника в мобильном приложении, сократит время на отчётность на 70--80% и повысит retention собственников на 15--20%.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Автоматические саммари:</strong> по итогам месяца AI формирует текстовый отчёт для каждого объекта</li>
+                <li><strong>Алерты на аномалии:</strong> падение загрузки, рост расходов, отмены бронирований -- push-уведомление с объяснением причин</li>
+                <li><strong>Прогноз доходности:</strong> AI прогнозирует доход на 1--3 месяца вперёд</li>
+                <li><strong>Рекомендации по объекту:</strong> что улучшить для роста доходности</li>
+                <li><strong>Сравнительная аналитика:</strong> бенчмаркинг vs портфель Qoople и рынок Аланьи</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">5 мин</div>
+                    <div class="metric-label">Время формирования отчёта (с 30--60 мин)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+15--20%</div>
+                    <div class="metric-label">Retention собственников</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+10--15</div>
+                    <div class="metric-label">NPS собственников (пунктов)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+10%</div>
+                    <div class="metric-label">Доля собственников, докупающих объекты</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li><strong>70.1%</strong> управляющих краткосрочной арендой уже используют AI в операционке</li>
+                        <li>Автоматизация финансовой отчётности сокращает цикл на <strong>60--80%</strong> и снижает ошибки на <strong>91%</strong></li>
+                        <li>AI-аналитика повышает точность инвестиционных решений на <strong>34%</strong></li>
+                        <li>Proptech-компании с AI-отчётностью показывают ROI <strong>28--34%</strong> годовых</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>Guesty Owner Portal</strong>: рост портфеля управляющих на <strong>24.6%</strong> за счёт прозрачной аналитики</li>
+                        <li><strong>Key Data Dashboard</strong>: бенчмаркинг по <strong>45+ KPI</strong> для собственников</li>
+                        <li><strong>Centerline</strong>: <strong>+35% продуктивности</strong> в первый месяц внедрения AI-отчётности</li>
+                        <li><strong>Relos</strong> (proptech): экономия <strong>45--60 мин на контракт</strong>, обработка <strong>$100M+</strong> транзакций с точностью <strong>99.5%</strong></li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>Hostaway, Guesty, RentalReady, Leobit, Proper AI</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== H9 ===== -->
+    <article class="hypothesis-card priority-card-low" id="h9">
+        <div class="hypothesis-header">
+            <div>
+                <div class="hypothesis-id">H9</div>
+                <h2 class="hypothesis-title">AI-антифрод системы лояльности Qoople Points</h2>
+            </div>
+            <span class="priority priority-low">Низкий</span>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Проблема</div>
+            <p>В ТЗ мобильного приложения заложена бонусная система Qoople Points. Любая бонусная система -- мишень для мошенничества. Потери от фрода в программах лояльности достигают <strong>$1 млрд/год</strong> глобально.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Гипотеза</div>
+            <p>AI-система мониторинга транзакций Qoople Points в реальном времени снизит потери от фрода на 80--90%.</p>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Механика</div>
+            <ol class="mechanics-list">
+                <li><strong>Мониторинг в реальном времени:</strong> каждая транзакция проходит через AI-скоринг</li>
+                <li><strong>Детекция аномалий:</strong> нетипичные паттерны</li>
+                <li><strong>Риск-скоринг аккаунтов:</strong> динамический риск-балл на основе поведения</li>
+                <li><strong>Автоматическая блокировка:</strong> при превышении порога -- заморозка баллов</li>
+                <li><strong>Отчётность:</strong> еженедельный дашборд для администраторов</li>
+            </ol>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Метрики успеха</div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">&lt; 0.5%</div>
+                    <div class="metric-label">Потери от фрода (vs среднеотраслевые 3--5%)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&lt; 1 мин</div>
+                    <div class="metric-label">Время детекции (real-time)</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">&lt; 5%</div>
+                    <div class="metric-label">False positive rate</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">+10--15%</div>
+                    <div class="metric-label">Retention участников программы</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-section-title">Бенчмарки из мировой практики</div>
+            <div class="benchmark-block">
+                <h4>Ключевые цифры</h4>
+                <div class="benchmark-figures">
+                    <ul>
+                        <li>Фрод в программах лояльности обходится в <strong>$1 млрд/год</strong> глобально</li>
+                        <li><strong>72%</strong> менеджеров программ лояльности сообщают о столкновении с фродом</li>
+                        <li>Лояльность-аккаунты атакуют в <strong>4--5 раз</strong> чаще</li>
+                        <li>AI-системы антифрода достигают точности <strong>92--98%</strong> детекции</li>
+                    </ul>
+                </div>
+
+                <h4>Кейсы</h4>
+                <div class="benchmark-cases">
+                    <ul>
+                        <li><strong>HexClad</strong>: ROI <strong>92x</strong> от внедрения антифрод-системы</li>
+                        <li><strong>Commonwealth Bank of Australia</strong>: снижение фрода на <strong>30%</strong> через AI-алерты</li>
+                        <li><strong>British Airways</strong> (2018): утечка <strong>400 000</strong> аккаунтов</li>
+                        <li><strong>Marriott</strong> (2018): компрометация <strong>300 млн</strong> аккаунтов</li>
+                    </ul>
+                </div>
+
+                <button class="sources-toggle" onclick="toggleSources(this)">
+                    <span>Источники (5)</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="sources-content">
+                    <ul>
+                        <li>Rivo, Focal AI, DataDome, AllAboutAI, EY</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- ===== TIMELINE ===== -->
+    <section class="timeline-section" id="timeline">
+        <h2>Рекомендуемая последовательность запуска</h2>
+
+        <div class="timeline-grid">
+            <div class="timeline-col">
+                <div class="timeline-month">Месяц 1</div>
+                <div class="timeline-items">
+                    <div class="timeline-item t-critical">H1<br>Email-аутрич для инвесторов</div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="timeline-month">Месяц 2</div>
+                <div class="timeline-items">
+                    <div class="timeline-item t-critical">H2<br>AI-квалификатор входящих лидов</div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="timeline-month">Месяц 3</div>
+                <div class="timeline-items">
+                    <div class="timeline-item t-high">H4<br>AI-консьерж для гостей</div>
+                    <div class="timeline-item t-medium">H6<br>AI-контент генератор</div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="timeline-month">Месяц 4--5</div>
+                <div class="timeline-items">
+                    <div class="timeline-item t-high">H3<br>Revenue Management</div>
+                    <div class="timeline-item t-medium">H8<br>AI-аналитик собственников</div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="timeline-month">Месяц 6+</div>
+                <div class="timeline-items">
+                    <div class="timeline-item t-medium">H5<br>AI-аудитор качества</div>
+                    <div class="timeline-item t-low">H7<br>Партнёры</div>
+                    <div class="timeline-item t-low">H9<br>AI-антифрод Qoople Points</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-logic">
+            <h3>Логика последовательности</h3>
+            <ol>
+                <li><strong>H1 первый</strong> -- прямой ответ на главную боль, быстрый пилот, максимальный ROI</li>
+                <li><strong>H2 второй</strong> -- защита от потерь, нужен до начала сезона</li>
+                <li><strong>H4 + H6 третьи</strong> -- подготовка к высокому сезону</li>
+                <li><strong>H3 четвёртый</strong> -- требует накопления данных (2--3 месяца)</li>
+                <li><strong>H8 четвёртый--пятый</strong> -- требует запуска мобильного приложения</li>
+                <li><strong>H5 + H7 последние</strong> -- оптимизация, актуальна при масштабе 200+</li>
+                <li><strong>H9 последний</strong> -- актуален при 500+ активных участников</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== FINAL SUMMARY TABLE ===== -->
+    <section class="final-summary" id="summary">
+        <h2>Суммарный потенциал влияния на денежный поток</h2>
+
+        <div class="final-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Гипотеза</th>
+                        <th>Целевое влияние на денежный поток (при 100 объектах)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>H1 Email-аутрич</td>
+                        <td>&euro;100 тыс./мес (2 сделки, комиссия 25%)</td>
+                    </tr>
+                    <tr>
+                        <td>H2 Квалификатор</td>
+                        <td>Спасённые лиды ~$5--20 тыс./мес</td>
+                    </tr>
+                    <tr>
+                        <td>H3 Revenue mgmt</td>
+                        <td>+&euro;30--45 тыс./мес (рост загрузки и RevPAR)</td>
+                    </tr>
+                    <tr>
+                        <td>H4 AI-консьерж</td>
+                        <td>+&euro;20--30 тыс./мес (апсейл допуслуг)</td>
+                    </tr>
+                    <tr>
+                        <td>H5 AI-аудитор</td>
+                        <td>+10--15% конверсия лид&rarr;сделка</td>
+                    </tr>
+                    <tr>
+                        <td>H6 AI-контент</td>
+                        <td>Экономия ~1 FTE + рост видимости листингов</td>
+                    </tr>
+                    <tr>
+                        <td>H7 Партнёры</td>
+                        <td>+15--20% лидов от партнёрского канала</td>
+                    </tr>
+                    <tr>
+                        <td>H8 AI-аналитик собственников</td>
+                        <td>Экономия ~1.5 FTE на отчётности + retention +15--20%</td>
+                    </tr>
+                    <tr>
+                        <td>H9 AI-антифрод Points</td>
+                        <td>Предотвращение потерь до 3--5% оборота баллов</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="final-note">
+            <strong>Примечание:</strong> показатели рассчитаны при портфеле 100 объектов. При масштабировании до 250 объектов потенциал кратно растёт.
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-brand">GO2AI</div>
+        <div class="footer-tagline">AI-трансформации для прибыльного роста</div>
+        <div class="footer-contacts">
+            <span><a href="https://go2ai.ru">go2ai.ru</a></span>
+            <span><a href="mailto:hello@go2ai.ru">hello@go2ai.ru</a></span>
+            <span><a href="https://t.me/go2ai">Telegram: @go2ai</a></span>
+        </div>
+        <div class="footer-copyright">GO2AI, 2026</div>
+    </footer>
+</div>
+
+<script>
+    function toggleSources(button) {
+        const content = button.nextElementSibling;
+        button.classList.toggle('open');
+        content.classList.toggle('open');
+    }
+</script>
+
+</body>
+</html>

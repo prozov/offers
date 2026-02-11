@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видение AI-трансформации Qoople — GO2AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1c1917;
+            --bg-card: #231f1c;
+            --bg-card-hover: #2a2522;
+            --accent: #A5521B;
+            --accent-light: #c06a2a;
+            --accent-dim: rgba(165, 82, 27, 0.2);
+            --accent-glow: rgba(165, 82, 27, 0.08);
+            --text-primary: #fafaf9;
+            --text-secondary: #a8a29e;
+            --text-muted: #78716c;
+            --border: rgba(165, 82, 27, 0.2);
+            --border-subtle: rgba(168, 162, 158, 0.1);
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, #231f1c 0%, var(--bg-primary) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 32px;
+        }
+
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-go2ai {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+
+        .header-client {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .header-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 80px 0 64px;
+            text-align: left;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-gradient-line {
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light), transparent);
+            border-radius: 2px;
+            margin-top: 8px;
+        }
+
+        .hero-meta {
+            margin-top: 28px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .hero-meta strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Sections */
+        .section {
+            padding: 48px 0;
+        }
+
+        .section + .section {
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 24px;
+            letter-spacing: -0.3px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            margin-top: 36px;
+        }
+
+        h3:first-child {
+            margin-top: 0;
+        }
+
+        h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            margin-top: 28px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        p strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Summary card special */
+        .summary-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(165, 82, 27, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px;
+            margin-bottom: 32px;
+        }
+
+        .summary-card .goal-text {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .summary-card .goal-text strong {
+            color: var(--accent);
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0 24px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        thead th {
+            background: rgba(165, 82, 27, 0.15);
+            color: var(--text-primary);
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        thead th:first-child {
+            border-radius: 9px 0 0 0;
+        }
+
+        thead th:last-child {
+            border-radius: 0 9px 0 0;
+        }
+
+        tbody td {
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: var(--accent-glow);
+        }
+
+        tbody td strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Hypothesis table special */
+        .hypothesis-table td:first-child {
+            color: var(--accent);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        li::marker {
+            color: var(--accent);
+        }
+
+        /* Ordered list styling */
+        ol li {
+            padding-left: 4px;
+        }
+
+        /* Nested lists */
+        ul ul, ol ul, ul ol, ol ol {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* Blockquote */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 16px 24px;
+            margin: 24px 0;
+            background: var(--accent-glow);
+            border-radius: 0 8px 8px 0;
+        }
+
+        blockquote p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        /* Pilot recommendation cards */
+        .pilot-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+        }
+
+        .pilot-card-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .pilot-card h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .pilot-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Logic list */
+        .logic-list {
+            counter-reset: logic;
+            list-style: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+
+        .logic-list li {
+            counter-increment: logic;
+            padding-left: 36px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .logic-list li::before {
+            content: counter(logic);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Timeline visual */
+        .timeline {
+            margin: 24px 0;
+        }
+
+        .timeline-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .timeline-label {
+            flex: 0 0 120px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            padding-top: 10px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 18px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .timeline-content strong {
+            color: var(--text-primary);
+        }
+
+        /* Step 0 role table */
+        .role-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        /* Option sections */
+        .option-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-glow);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        /* Next steps */
+        .next-steps {
+            background: linear-gradient(135deg, rgba(165, 82, 27, 0.08) 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px;
+            margin-top: 8px;
+        }
+
+        .next-steps ol {
+            margin-bottom: 0;
+        }
+
+        .next-steps li {
+            font-size: 1rem;
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        .next-steps li:last-child {
+            margin-bottom: 0;
+        }
+
+        .next-steps li strong {
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .footer-tagline {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .footer-contacts {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .footer-contacts a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-contacts a:hover {
+            color: var(--accent);
+        }
+
+        .footer-separator {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Emphasis text */
+        .emphasis-text {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        /* Approach steps */
+        .approach-steps {
+            counter-reset: approach;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .approach-steps li {
+            counter-increment: approach;
+            padding: 14px 18px 14px 52px;
+            position: relative;
+            margin-bottom: 8px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .approach-steps li::before {
+            content: counter(approach);
+            position: absolute;
+            left: 16px;
+            top: 14px;
+            width: 26px;
+            height: 26px;
+            background: var(--accent);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Sub-section separator */
+        .sub-separator {
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px;
+            margin: 32px 0;
+            opacity: 0.5;
+        }
+
+        /* Team block */
+        .team-block {
+            margin-top: 20px;
+        }
+
+        .team-block-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        /* Inline cost highlight */
+        .cost-highlight {
+            display: inline-block;
+            background: var(--accent-glow);
+            border: 1px solid var(--border);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+
+        /* Small text */
+        .small-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .header {
+                padding: 16px 20px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .header-date {
+                display: none;
+            }
+
+            .hero {
+                padding: 48px 0 40px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .card, .summary-card, .next-steps {
+                padding: 24px;
+            }
+
+            .pilot-card {
+                padding: 20px;
+            }
+
+            .timeline-row {
+                flex-direction: column;
+            }
+
+            .timeline-label {
+                flex: none;
+                padding-top: 0;
+                margin-bottom: 6px;
+            }
+
+            .footer-contacts {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .footer-separator {
+                display: none;
+            }
+
+            table {
+                font-size: 0.82rem;
+            }
+
+            thead th, tbody td {
+                padding: 10px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .section {
+                padding: 36px 0;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: #fff;
+                color: #1a1a1a;
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+
+            .header {
+                background: none;
+                border-bottom: 2px solid #A5521B;
+                padding: 12px 0;
+            }
+
+            .header-inner {
+                max-width: 100%;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .hero {
+                padding: 32px 0 24px;
+            }
+
+            .hero h1 {
+                font-size: 22pt;
+                color: #1a1a1a;
+            }
+
+            .hero-gradient-line {
+                background: #A5521B;
+            }
+
+            .hero-label {
+                color: #A5521B;
+            }
+
+            h2 {
+                color: #A5521B;
+                font-size: 16pt;
+                page-break-after: avoid;
+            }
+
+            h3, h4 {
+                color: #1a1a1a;
+                page-break-after: avoid;
+            }
+
+            p, li {
+                color: #333;
+            }
+
+            p strong, li strong {
+                color: #1a1a1a;
+            }
+
+            .card, .summary-card, .pilot-card, .next-steps {
+                background: none;
+                border: 1px solid #ddd;
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            .approach-steps li {
+                background: none;
+                border: 1px solid #ddd;
+            }
+
+            .approach-steps li::before,
+            .logic-list li::before {
+                background: #A5521B;
+                color: #fff;
+            }
+
+            .table-wrapper {
+                border: 1px solid #ddd;
+            }
+
+            thead th {
+                background: #f5f0ec;
+                color: #1a1a1a;
+                border-bottom: 1px solid #ddd;
+            }
+
+            tbody td {
+                color: #333;
+                border-bottom: 1px solid #eee;
+            }
+
+            tbody td strong {
+                color: #1a1a1a;
+            }
+
+            tbody tr:hover {
+                background: none;
+            }
+
+            blockquote {
+                border-left-color: #A5521B;
+                background: #faf7f5;
+            }
+
+            blockquote p {
+                color: #555;
+            }
+
+            .timeline-content {
+                background: none;
+                border: 1px solid #ddd;
+                color: #333;
+            }
+
+            .timeline-content strong {
+                color: #1a1a1a;
+            }
+
+            .timeline-label {
+                color: #A5521B;
+            }
+
+            .option-badge {
+                background: none;
+                border-color: #A5521B;
+                color: #A5521B;
+            }
+
+            .section + .section {
+                border-top: 1px solid #ddd;
+            }
+
+            .footer {
+                border-top: 1px solid #ddd;
+            }
+
+            .footer-brand {
+                color: #A5521B;
+            }
+
+            .footer-tagline {
+                color: #555;
+            }
+
+            .footer-contacts a {
+                color: #333;
+            }
+
+            .hero-meta strong {
+                color: #1a1a1a;
+            }
+
+            .hero-meta {
+                color: #555;
+            }
+
+            .header-go2ai {
+                color: #A5521B;
+            }
+
+            .header-client {
+                color: #555;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-brand">
+                <span class="header-go2ai">GO2AI</span>
+                <div class="header-divider"></div>
+                <span class="header-client">Qoople</span>
+            </div>
+            <span class="header-date">11 февраля 2026</span>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="container">
+        <div class="hero">
+            <span class="hero-label">Видение трансформации</span>
+            <h1>Видение AI-трансформации Qoople</h1>
+            <div class="hero-gradient-line"></div>
+            <div class="hero-meta">
+                <strong>Подготовлено:</strong> GO2AI<br>
+                <strong>Дата:</strong> 11 февраля 2026
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <section class="section">
+            <h2>Executive Summary</h2>
+
+            <div class="summary-card">
+                <p class="goal-text"><strong>Цель:</strong> Сделать AI инструментом масштабирования Qoople — от 100 до 250+ объектов без пропорционального роста операционных затрат.</p>
+            </div>
+
+            <h3>Что предлагаем</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Компонент</th>
+                            <th>Результат</th>
+                            <th>Стоимость</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Шаг 0: Цели и команда</strong></td>
+                            <td>Четкие метрики трансформации, сформированная команда изменений (бизнес + ИТ + HR)</td>
+                            <td>Входит в стоимость пилотов</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Пилотирование 2--3 AI-гипотез</strong></td>
+                            <td>Работающие прототипы с подтвержденными бизнес-метриками</td>
+                            <td>250--500 тыс. руб. за пилот</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Дополнительные опции</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Опция</th>
+                            <th>Результат</th>
+                            <th>Стоимость</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Обучение команды</strong></td>
+                            <td>Навыки работы с AI у ключевых сотрудников</td>
+                            <td>от 200 тыс. руб.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Платформа для создания ИИ-агентов</strong></td>
+                            <td>Самостоятельная сборка и эксплуатация агентов бизнес-командами</td>
+                            <td>~500--800 тыс. руб.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Ориентировочный таймлайн</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Этап</th>
+                            <th>Сроки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Цели, метрики, команда изменений</td>
+                            <td>Неделя 0</td>
+                        </tr>
+                        <tr>
+                            <td>Пилотирование гипотез (2--3 параллельно)</td>
+                            <td>Недели 1--6</td>
+                        </tr>
+                        <tr>
+                            <td>Подведение итогов, решение о масштабировании</td>
+                            <td>Недели 7--8</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Контекст -->
+        <section class="section">
+            <h2>Контекст: Почему сейчас</h2>
+
+            <p class="emphasis-text">Qoople управляет ~100 объектами краткосрочной аренды в Аланье и планирует вырасти до 250 к лету. Это рост в 2.5 раза за несколько месяцев. Без автоматизации ключевых процессов такой рост означает:</p>
+
+            <ul>
+                <li><strong>Потерю лидов</strong> — уже сейчас фиксируются упущенные сделки на десятки тысяч долларов из-за человеческого фактора</li>
+                <li><strong>Неэффективное привлечение инвесторов</strong> — контекстная реклама убыточна, парсинг + колл-центр дали нулевой результат</li>
+                <li><strong>Недозагрузку объектов</strong> — 35--40% в несезон при целевых 55%</li>
+                <li><strong>Потерю апсейлов</strong> — консьерж-сервис ведется вручную, менеджеры перегружены</li>
+                <li><strong>Линейный рост затрат</strong> — каждый новый объект требует пропорционально больше ресурсов</li>
+            </ul>
+
+            <p>AI-пилоты позволяют проверить гипотезы автоматизации на реальных данных и подтвердить бизнес-эффект до масштабирования.</p>
+        </section>
+
+        <!-- Подход -->
+        <section class="section">
+            <h2>Подход GO2AI: Пилот &rarr; Метрики &rarr; Масштаб</h2>
+
+            <p>Мы не предлагаем &laquo;трансформацию на веру&raquo;. Подход GO2AI:</p>
+
+            <ol class="approach-steps">
+                <li><strong>Формулируем гипотезу</strong> — какой процесс автоматизируем, какой эффект ожидаем</li>
+                <li><strong>Определяем метрики</strong> — конкретные KPI, по которым оцениваем успех</li>
+                <li><strong>Собираем пилот</strong> — рабочий прототип за 4--6 недель</li>
+                <li><strong>Замеряем результат</strong> — подтверждаем или опровергаем гипотезу на реальных данных</li>
+                <li><strong>Масштабируем</strong> — только то, что доказало эффект</li>
+            </ol>
+
+            <p>Средний чек инвестиций в пилот — <span class="cost-highlight">250--500 тыс. руб.</span> в зависимости от сложности процесса.</p>
+        </section>
+
+        <!-- Шаг 0 -->
+        <section class="section">
+            <h2>Шаг 0: Цели, метрики и команда изменений</h2>
+
+            <p>Прежде чем запускать пилоты, необходимо создать фундамент для управляемых изменений.</p>
+
+            <h3>1. Формулирование целей и метрик</h3>
+
+            <ul>
+                <li>Определяем, какие бизнес-результаты Qoople хочет получить от AI-трансформации (например: рост загрузки, снижение потерь лидов, увеличение среднего чека через допуслуги)</li>
+                <li>Согласовываем целевые показатели (OKR) для каждого пилота</li>
+                <li>Определяем критерии успеха: при каких метриках пилот считается успешным и масштабируется</li>
+                <li>Выявляем текущие baseline-показатели для корректного сравнения &laquo;до/после&raquo;</li>
+            </ul>
+
+            <h3>2. Формирование команды изменений</h3>
+
+            <p>Успешная трансформация невозможна без совместной команды, в которую входят представители трех ключевых направлений от заказчика:</p>
+
+            <div class="team-block">
+                <p class="team-block-title">Со стороны Qoople (требуется назначение):</p>
+                <div class="table-wrapper">
+                    <table class="role-table">
+                        <thead>
+                            <tr>
+                                <th>Роль</th>
+                                <th>Зачем нужен</th>
+                                <th>Кто</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Бизнес-спонсор</strong></td>
+                                <td>Принимает ключевые решения, обеспечивает ресурсы и приоритизацию</td>
+                                <td>Партнер / CEO</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Представитель бизнеса</strong> (1--2 чел.)</td>
+                                <td>Владелец процессов, участвует в тестировании пилотов, дает обратную связь</td>
+                                <td>Руководители направлений (продажи, операционка, маркетинг)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Представитель ИТ</strong></td>
+                                <td>Технические вопросы, интеграция с Битрикс и другими системами, архитектура</td>
+                                <td>Ответственный за ИТ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Представитель HR</strong></td>
+                                <td>Управление изменениями, вовлечение команды, обучение при масштабировании</td>
+                                <td>HR-менеджер</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="team-block">
+                <p class="team-block-title">Со стороны GO2AI:</p>
+                <ul>
+                    <li>Руководитель проекта — координация, таймлайн, отчетность</li>
+                    <li>Бизнес-аналитик — анализ процессов, формирование требований, метрики</li>
+                    <li>AI-архитектор — проектирование решений, интеграции</li>
+                    <li>Команда разработки — сборка и тестирование AI-агентов</li>
+                </ul>
+            </div>
+
+            <h3>3. Сверка с текущими инициативами</h3>
+
+            <ul>
+                <li>Аудит внедрения Битрикс — какие процессы уже покрыты / планируются к автоматизации, чтобы не дублировать функционал</li>
+                <li>Оценка готовности данных и систем для каждого пилота</li>
+            </ul>
+        </section>
+
+        <!-- Карта гипотез -->
+        <section class="section">
+            <h2>Карта гипотез автоматизации</h2>
+
+            <p>На основании анализа бизнес-процессов, маркетинговой стратегии и саммари встречи с Антоном Бабчихиным сформированы 9 гипотез автоматизации:</p>
+
+            <div class="table-wrapper">
+                <table class="hypothesis-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Проблема бизнеса</th>
+                            <th>Гипотеза</th>
+                            <th>Приоритет</th>
+                            <th>Целевое влияние (при 100 объектах)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>H1</td>
+                            <td>Нет канала привлечения инвесторов</td>
+                            <td><strong>AI email-аутрич</strong></td>
+                            <td>Критический</td>
+                            <td>&euro;100 тыс./мес (2 сделки)</td>
+                        </tr>
+                        <tr>
+                            <td>H2</td>
+                            <td>Потеря лидов из-за человеческого фактора</td>
+                            <td><strong>AI-квалификатор входящих</strong></td>
+                            <td>Критический</td>
+                            <td>Спасенные лиды ~$5--20 тыс./мес</td>
+                        </tr>
+                        <tr>
+                            <td>H3</td>
+                            <td>Загрузка в несезон 35--40% вместо 55%</td>
+                            <td><strong>AI revenue management</strong></td>
+                            <td>Высокий</td>
+                            <td>+&euro;30--45 тыс./мес</td>
+                        </tr>
+                        <tr>
+                            <td>H4</td>
+                            <td>Консьерж-сервис вручную, апсейлы теряются</td>
+                            <td><strong>AI-консьерж для гостей</strong></td>
+                            <td>Высокий</td>
+                            <td>+&euro;20--30 тыс./мес</td>
+                        </tr>
+                        <tr>
+                            <td>H5</td>
+                            <td>Нет контроля качества коммуникаций</td>
+                            <td><strong>AI-аудитор разговоров</strong></td>
+                            <td>Средний</td>
+                            <td>+10--15% конверсия</td>
+                        </tr>
+                        <tr>
+                            <td>H6</td>
+                            <td>Контент нужен на 3 языках для 30+ площадок</td>
+                            <td><strong>AI-генератор контента</strong></td>
+                            <td>Средний</td>
+                            <td>Экономия ~1 FTE</td>
+                        </tr>
+                        <tr>
+                            <td>H7</td>
+                            <td>Партнерская сеть не систематизирована</td>
+                            <td><strong>AI-скоринг партнеров</strong></td>
+                            <td>Низкий</td>
+                            <td>+15--20% лидов</td>
+                        </tr>
+                        <tr>
+                            <td>H8</td>
+                            <td>Собственники не понимают свои данные</td>
+                            <td><strong>AI-аналитик для собственников</strong></td>
+                            <td>Средний</td>
+                            <td>Экономия ~1.5 FTE + retention +15--20%</td>
+                        </tr>
+                        <tr>
+                            <td>H9</td>
+                            <td>Бонусная система уязвима для мошенничества</td>
+                            <td><strong>AI-антифрод Qoople Points</strong></td>
+                            <td>Низкий</td>
+                            <td>Предотвращение потерь 3--5% оборота</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <blockquote>
+                <p>При масштабировании до 250 объектов потенциал влияния кратно растет. Детальное описание каждой гипотезы с механикой, метриками успеха и бенчмарками — в документе &laquo;Гипотезы автоматизации Qoople&raquo;.</p>
+            </blockquote>
+
+            <h3>Рекомендуемые пилоты для старта</h3>
+
+            <p>Для первой волны рекомендуем <strong>2--3 гипотезы</strong> из числа критических и высокоприоритетных:</p>
+
+            <div class="pilot-card">
+                <span class="pilot-card-label">Критический</span>
+                <h4>H1. AI email-аутрич для привлечения инвесторов</h4>
+                <p>Прямой ответ на главную боль. Нет работающего канала привлечения инвесторов; контекстная реклама и парсинг + колл-центр показали нулевой результат. Пилот позволяет быстро проверить канал с минимальными вложениями.</p>
+            </div>
+
+            <div class="pilot-card">
+                <span class="pilot-card-label">Критический</span>
+                <h4>H2. AI-квалификатор входящих лидов</h4>
+                <p>Защита от потерь. Каждый пропущенный лид — это тысячи долларов (документированный кейс: $20 тыс.). При росте до 250 объектов объем входящих запросов увеличится кратно — без автоматизации первой линии потери станут системными.</p>
+            </div>
+
+            <div class="pilot-card">
+                <span class="pilot-card-label">Высокий приоритет</span>
+                <h4>H4. AI-консьерж для гостей</h4>
+                <p>Подготовка к высокому сезону. Менеджеры перегружены уже при 100 объектах. Потенциал апсейла — удвоение среднего чека аренды через допуслуги (трансферы, экскурсии, авто, спа).</p>
+            </div>
+
+            <h3>Логика выбора</h3>
+
+            <ol class="logic-list">
+                <li><strong>H1 первый</strong> — максимальный ROI, быстрый пилот, прямое влияние на привлечение инвесторов</li>
+                <li><strong>H2 второй</strong> — нужен до начала высокого сезона, когда объем запросов вырастет</li>
+                <li><strong>H4 третий</strong> — максимизация дохода с каждого гостя в сезон (апрель--май)</li>
+            </ol>
+
+            <p>Остальные гипотезы (H3, H5--H9) — кандидаты для второй и третьей волн, запускаются по итогам первых пилотов.</p>
+        </section>
+
+        <!-- Формат пилота -->
+        <section class="section">
+            <h2>Формат пилота</h2>
+
+            <p>Каждый пилот строится по единой методологии:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Этап</th>
+                            <th>Что делаем</th>
+                            <th>Срок</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Брифинг</strong></td>
+                            <td>Детализация гипотезы, уточнение метрик, сбор данных</td>
+                            <td>3--5 дней</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Разработка</strong></td>
+                            <td>Сборка прототипа агента</td>
+                            <td>2--3 недели</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Тестирование</strong></td>
+                            <td>Запуск на реальных данных, сбор метрик</td>
+                            <td>2--3 недели</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Итоги</strong></td>
+                            <td>Отчет: метрики, выводы, рекомендации по масштабированию</td>
+                            <td>2--3 дня</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>Стоимость:</strong> <span class="cost-highlight">250--500 тыс. руб. за пилот</span> (в зависимости от сложности процесса и количества субагентов).</p>
+
+            <p><strong>Принцип:</strong> для каждого пилота до старта определяются целевые метрики и расчет влияния на денежный поток. Успешные пилоты масштабируются, неуспешные — дают данные для корректировки подхода.</p>
+        </section>
+
+        <!-- Дополнительные опции -->
+        <section class="section">
+            <h2>Дополнительные опции</h2>
+
+            <div class="card">
+                <span class="option-badge">Опция A</span>
+                <h3>Обучение команды</h3>
+
+                <p>При масштабировании до 250+ объектов команде Qoople потребуются навыки работы с AI-инструментами. Предлагаем две ступени:</p>
+
+                <h4>Ступень 1: Онлайн-курс &laquo;ГенИИ в работе&raquo;</h4>
+                <ul>
+                    <li>9 коротких уроков для самостоятельного прохождения</li>
+                    <li>Для всех сотрудников Qoople</li>
+                    <li>Базовое понимание AI, основы промптинга, безопасность</li>
+                    <li><strong>Бесплатно</strong> — предоставляется как часть программы</li>
+                </ul>
+
+                <h4>Ступень 2: Тренинг с практикой</h4>
+                <ul>
+                    <li>Для ключевых сотрудников (5--10 человек)</li>
+                    <li>4 модуля: промптинг, ландшафт моделей, практический воркшоп, автоматизация и агенты</li>
+                    <li>Практика на реальных кейсах Qoople (управление объектами, работа с гостями, маркетинг)</li>
+                    <li>Стоимость формируется после обсуждения программы</li>
+                </ul>
+
+                <blockquote>
+                    <p>Обучение может запускаться параллельно с пилотами или после них — в зависимости от приоритетов.</p>
+                </blockquote>
+            </div>
+
+            <div class="card">
+                <span class="option-badge">Опция B</span>
+                <h3>Платформа для создания ИИ-агентов</h3>
+
+                <p>Визуальный конструктор для самостоятельной сборки и эксплуатации AI-агентов бизнес-командами Qoople — без привлечения разработчиков:</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Возможность</th>
+                                <th>Выгода для Qoople</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Визуальный конструктор</strong></td>
+                                <td>Бизнес-команды сами собирают агентов из готовых блоков</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Перенос пилотов</strong></td>
+                                <td>Агенты, созданные на этапе пилотирования, переносятся на платформу и становятся доступны всей команде</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Выбор моделей</strong></td>
+                                <td>GPT-5, Claude, другие — под разные задачи агентов</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Мониторинг и аналитика</strong></td>
+                                <td>Отслеживание работы агентов, качество ответов, метрики эффективности</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Масштабирование</strong></td>
+                                <td>Новые агенты создаются по мере роста портфеля без повторного привлечения GO2AI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Стоимость внедрения:</strong> <span class="cost-highlight">~300 тыс. руб.</span> (уточняется после проработки требований с ИТ).</p>
+
+                <p class="small-text">Токены LLM оплачиваются отдельно — расход зависит от количества и интенсивности работы агентов.</p>
+
+                <blockquote>
+                    <p>Платформа актуальна после успешного пилотирования — когда подтвержденные агенты нужно перевести в промышленную эксплуатацию и дать команде возможность создавать новых агентов самостоятельно. Может внедряться на втором этапе, по итогам пилотов.</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Таймлайн -->
+        <section class="section">
+            <h2>Таймлайн</h2>
+
+            <div class="timeline">
+                <div class="timeline-row">
+                    <div class="timeline-label">Неделя 0</div>
+                    <div class="timeline-content">Цели, метрики, команда изменений / Сверка с Битрикс / Выбор 2--3 гипотез</div>
+                </div>
+                <div class="timeline-row">
+                    <div class="timeline-label">Недели 1--3</div>
+                    <div class="timeline-content"><strong>H1</strong> Email-аутрич (разработка) / <strong>H2</strong> AI-квалификатор (разработка) / <strong>H4</strong> AI-консьерж (разработка)</div>
+                </div>
+                <div class="timeline-row">
+                    <div class="timeline-label">Недели 3--6</div>
+                    <div class="timeline-content">Тестирование <strong>H1</strong>, <strong>H2</strong>, <strong>H4</strong> на реальных данных</div>
+                </div>
+                <div class="timeline-row">
+                    <div class="timeline-label">Недели 7--8</div>
+                    <div class="timeline-content">Подведение итогов, решение о масштабировании</div>
+                </div>
+            </div>
+
+            <p class="small-text">Конкретные даты уточняются на старте проекта. При выборе 2 пилотов вместо 3 — таймлайн сокращается.</p>
+        </section>
+
+        <!-- Управление проектом -->
+        <section class="section">
+            <h2>Управление проектом</h2>
+
+            <h3>Ритм работы</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Формат</th>
+                            <th>Частота</th>
+                            <th>Цель</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Планнинг</strong></td>
+                            <td>Еженедельно</td>
+                            <td>Задачи на неделю, синхронизация</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Чекин со спонсором</strong></td>
+                            <td>Раз в 2 недели</td>
+                            <td>Контроль прогресса по OKR</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Технические сессии</strong></td>
+                            <td>По необходимости</td>
+                            <td>Интеграции, данные, архитектура</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Демо пилотов</strong></td>
+                            <td>По ходу работы</td>
+                            <td>Показ прототипов, приемка</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Методология</h3>
+
+            <p><strong>OKR</strong> — на старте определяем цели с конкретными результатами. Прогресс отслеживается на чекинах.</p>
+
+            <p><strong>ADKAR</strong> — управление изменениями: пилоты создают осознание через быстрые победы, обучение дает знания, платформа обеспечивает способность применять AI в работе.</p>
+
+            <h3>Отчетность</h3>
+
+            <ul>
+                <li>Регулярный чекин-репорт раз в 2 недели</li>
+                <li>Итоговый отчет по каждому пилоту с метриками и рекомендациями</li>
+            </ul>
+        </section>
+
+        <!-- Следующий шаг -->
+        <section class="section">
+            <h2>Следующий шаг</h2>
+
+            <div class="next-steps">
+                <ol>
+                    <li><strong>Согласовать 2--3 гипотезы</strong> для пилотирования из предложенных (H1, H2, H4 — или другие по приоритетам бизнеса)</li>
+                    <li><strong>Назначить участников команды изменений</strong> от Qoople: бизнес, ИТ, HR</li>
+                    <li><strong>Определить дату старта</strong> — ориентировочная длительность: 8 недель</li>
+                    <li><strong>Провести стартовую сессию</strong> — цели, метрики, baseline, сверка с Битрикс</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-brand">GO2AI</div>
+            <p class="footer-tagline">ИИ-трансформации для прибыльного роста</p>
+            <div class="footer-contacts">
+                <a href="mailto:hello@go2ai.ru">hello@go2ai.ru</a>
+                <span class="footer-separator">|</span>
+                <a href="https://t.me/go2ai_team" target="_blank" rel="noopener">t.me/go2ai_team</a>
+                <span class="footer-separator">|</span>
+                <a href="https://go2ai.ru" target="_blank" rel="noopener">go2ai.ru</a>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
