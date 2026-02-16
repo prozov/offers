@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Омниканальная стратегия привлечения — Qoople</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #1c1917;
+            --dark: #241c18;
+            --dark-gray: #2a1f1b;
+            --medium-gray: #3d2e26;
+            --text-gray: #6b5d54;
+            --text-light: #9a8b82;
+            --white: #FFFFFF;
+            --off-white: #F3EFEB;
+            --warm-white: #FAF8F6;
+            --border: #E8E0D8;
+            --accent: #A5521B;
+            --accent-light: rgba(165, 82, 27, 0.10);
+            --accent-dark: #8B4516;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: var(--black);
+            background: var(--white);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: var(--black);
+            background-image:
+                radial-gradient(ellipse at 70% 40%, rgba(165, 82, 27, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, #1c1917 0%, #402921 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 80px;
+        }
+
+        .hero-badge {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 5.5vw, 64px);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--white);
+            max-width: 900px;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 640px;
+            margin-bottom: 64px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.4s forwards;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.5s forwards;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hero-meta-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-meta-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 100px 80px;
+        }
+
+        .section-white {
+            background: var(--white);
+        }
+
+        .section-off-white {
+            background: var(--off-white);
+        }
+
+        .section-warm {
+            background: var(--warm-white);
+        }
+
+        .section-dark {
+            background: var(--black);
+        }
+
+        .section-dark .section-label {
+            color: var(--accent);
+        }
+
+        .section-dark .section-title {
+            color: var(--white);
+        }
+
+        .section-dark .section-description {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .section-dark .subsection-title {
+            color: var(--white);
+        }
+
+        .section-dark .subsection-desc {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 80px;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            padding-top: 8px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--black);
+            margin-bottom: 16px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-gray);
+        }
+
+        /* ===== METRICS (large numbers) ===== */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+
+        .metric-item {
+            text-align: left;
+        }
+
+        .metric-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* ===== CARDS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .cards-grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 40px 32px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .section-off-white .card {
+            background: var(--white);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-number {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--off-white);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .section-off-white .card-number {
+            color: #EBEBEB;
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 6px 12px;
+            border-radius: 3px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .card-meta-item {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .card-meta-item span {
+            color: var(--black);
+            font-weight: 500;
+        }
+
+        /* ===== TABLE ===== */
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .metrics-table thead th {
+            background: var(--black);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 16px 28px;
+            text-align: left;
+        }
+
+        .metrics-table thead th:not(:first-child) {
+            text-align: center;
+        }
+
+        .metrics-table tbody td {
+            padding: 20px 28px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .metrics-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .metrics-table tbody td:not(:first-child) {
+            text-align: center;
+            color: var(--text-gray);
+            border-left: 1px solid var(--border);
+        }
+
+        .metrics-table tbody tr:hover {
+            background: var(--off-white);
+        }
+
+        .metrics-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ===== QUOTE ===== */
+        .quote-block {
+            margin-top: 48px;
+            padding: 32px 40px;
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .quote-block p {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* ===== EXPERIENCE CARDS ===== */
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .exp-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 36px 32px;
+            transition: all 0.3s ease;
+        }
+
+        .exp-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .exp-card-project {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .exp-card-result {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+        }
+
+        .exp-card-detail {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .section-dark .exp-card {
+            background: var(--dark-gray);
+            border-color: var(--medium-gray);
+        }
+
+        .section-dark .exp-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-dark .exp-card-project {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .section-dark .exp-card-detail {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== CTA ===== */
+        .cta-block {
+            background: var(--accent);
+            border-radius: 4px;
+            padding: 64px;
+        }
+
+        .cta-block h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 32px;
+        }
+
+        .cta-list {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .cta-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            font-size: 16px;
+            color: var(--white);
+            line-height: 1.5;
+        }
+
+        .cta-list li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin-top: 7px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--black);
+            border-top: 1px solid var(--dark-gray);
+            padding: 48px 80px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-left a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer-left a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-right {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ===== INLINE SOURCES ===== */
+        .src {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .src:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            position: relative;
+            margin-bottom: 64px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 11px;
+            left: calc(12.5% + 6px);
+            right: calc(12.5% + 6px);
+            height: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--accent);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        .timeline-day {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .timeline-action {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+
+        .timeline-channel {
+            font-size: 13px;
+            color: var(--text-gray);
+            max-width: 180px;
+        }
+
+        /* ===== JOURNEY ===== */
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .journey-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .journey-step {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--off-white);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .journey-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .journey-desc {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        .journey-result {
+            margin-top: 32px;
+            padding: 24px 32px;
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 4px 4px 0;
+            text-align: left;
+        }
+
+        .journey-result p {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        .journey-result strong {
+            color: var(--accent);
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .subsection-desc {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .section {
+                padding: 80px 40px;
+            }
+
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-row {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .exp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-table {
+                font-size: 13px;
+            }
+
+            .timeline {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px 0;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+
+            .journey-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 24px;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section {
+                padding: 60px 24px;
+            }
+
+            .cta-block {
+                padding: 40px 24px;
+            }
+
+            .footer {
+                padding: 32px 24px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .exp-card-result {
+                font-size: 22px;
+            }
+
+            .metric-value {
+                font-size: 32px;
+            }
+
+            .timeline {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .journey-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">Стратегия привлечения</div>
+        <h1>Омниканальная стратегия привлечения инвесторов и&nbsp;B2B&#8209;клиентов</h1>
+        <p class="hero-subtitle">От пилота к масштабированию — поэтапный подход с подтверждением метрик на каждом шаге</p>
+        <div class="hero-meta">
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Клиент</span>
+                <span class="hero-meta-value">Qoople</span>
+            </div>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Дата</span>
+                <span class="hero-meta-value">Февраль 2026</span>
+            </div>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Формат</span>
+                <span class="hero-meta-value">Пилот → масштабирование</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЗАДАЧА -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Задача</div>
+                <div>
+                    <h2 class="section-title">Стабильный поток инвесторов для масштабирования</h2>
+                    <p class="section-description">Qoople управляет ~100 объектами краткосрочной аренды в Аланье с целью выйти на 250 к лету. Контекстная реклама и парсинг + колл-центр результата не дали: инвесторы с капиталом от €150 тыс. принимают решения через доверие к эксперту, а не через рекламный клик. Нужен системный подход через экспертную коммуникацию.</p>
+                </div>
+            </div>
+            <div class="metrics-row">
+                <div class="metric-item">
+                    <div class="metric-value">2</div>
+                    <div class="metric-label">Сделки в месяц — целевой объём привлечения инвесторов</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">€200 тыс.</div>
+                    <div class="metric-label">Средний чек одной инвестиционной сделки</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">250</div>
+                    <div class="metric-label">Целевое количество объектов к концу лета 2026</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- РЕШЕНИЕ -->
+    <section class="section section-off-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Решение</div>
+                <div>
+                    <h2 class="section-title">Поэтапный подход</h2>
+                    <p class="section-description">Каждый этап — только после подтверждения метрик предыдущего. Решение на основе цифр, а не предположений.</p>
+                </div>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-number">01</div>
+                    <div class="card-tag">Пилот</div>
+                    <h3 class="card-title">Один канал</h3>
+                    <p class="card-text">Email или LinkedIn, 50–100 контактов. Проверка гипотез и настройка воронки.</p>
+                    <div class="card-meta">
+                        <div class="card-meta-item">Срок: <span>4–6 нед.</span></div>
+                        <div class="card-meta-item">Стоимость: <span>250–350 тыс. ₽</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-number">02</div>
+                    <div class="card-tag">Масштабирование</div>
+                    <h3 class="card-title">Два канала</h3>
+                    <p class="card-text">Кросс-канальные касания, сегментация по реакциям. Углубление работы с аудиторией.</p>
+                    <div class="card-meta">
+                        <div class="card-meta-item">Срок: <span>4–6 нед.</span></div>
+                        <div class="card-meta-item">Стоимость: <span>По итогам пилота</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-number">03</div>
+                    <div class="card-tag">Полный охват</div>
+                    <h3 class="card-title">Омниканальность</h3>
+                    <p class="card-text">Ретаргетинг по базе контактов из этапов 1–2 + контент-маркетинг. CPL ожидаемо ниже прямого аутрича.</p>
+                    <div class="card-meta">
+                        <div class="card-meta-item">Срок: <span>По итогам этапа 2</span></div>
+                        <div class="card-meta-item">Стоимость: <span>По результатам</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КАК ЭТО РАБОТАЕТ -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Как это работает</div>
+                <div>
+                    <h2 class="section-title">Омниканальный подход в действии</h2>
+                    <p class="section-description">Каналы работают не параллельно, а в связке — усиливая друг друга. Вот как выглядит кросс-канальная механика и что переживает инвестор.</p>
+                </div>
+            </div>
+
+            <!-- Таймлайн кросс-канальных касаний -->
+            <h3 class="subsection-title">Кросс-канальная цепочка касаний</h3>
+            <p class="subsection-desc">Если контакт не отвечает в одном канале — подключается второй. Чередование создаёт присутствие без навязчивости.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-day">День 1</div>
+                    <div class="timeline-action">Первое касание</div>
+                    <div class="timeline-channel">Email: персонализированное письмо с конкретной ценностью</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-day">День 3–5</div>
+                    <div class="timeline-action">Второй канал</div>
+                    <div class="timeline-channel">LinkedIn: запрос на контакт с экспертным контекстом</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-day">День 7–10</div>
+                    <div class="timeline-action">Смена угла</div>
+                    <div class="timeline-channel">Email: новый аргумент — кейс, аналитика или приглашение</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-day">День 14</div>
+                    <div class="timeline-action">Финальное касание</div>
+                    <div class="timeline-channel">LinkedIn: сообщение с полезным материалом</div>
+                </div>
+            </div>
+
+            <!-- Глазами инвестора -->
+            <h3 class="subsection-title">Глазами инвестора</h3>
+            <p class="subsection-desc">На этапе полной омниканальности инвестор видит Qoople сразу в нескольких точках — это формирует доверие естественным путём.</p>
+
+            <div class="journey-grid">
+                <div class="journey-card">
+                    <div class="journey-step">01</div>
+                    <div class="journey-title">Персональное письмо</div>
+                    <div class="journey-desc">Получает email с конкретной ценностью — не рекламу, а экспертное наблюдение</div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-step">02</div>
+                    <div class="journey-title">Запрос в LinkedIn</div>
+                    <div class="journey-desc">Видит эксперта Qoople в профессиональной сети — знакомое имя</div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-step">03</div>
+                    <div class="journey-title">Ретаргетинг</div>
+                    <div class="journey-desc">Встречает рекламу с полезным контентом — аналитика, доходность, кейсы</div>
+                </div>
+                <div class="journey-card">
+                    <div class="journey-step">04</div>
+                    <div class="journey-title">Экспертный контент</div>
+                    <div class="journey-desc">Находит публикации руководителей Qoople в профессиональной ленте</div>
+                </div>
+            </div>
+
+            <div class="journey-result">
+                <p>Формируется <strong>доверие через присутствие</strong> — не навязчивое, а естественное. Когда инвестор готов к разговору, Qoople — уже знакомое имя. Конверсия омниканальных кампаний — <strong>в 2–3 раза выше</strong> одноканальных.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПИЛОТ -->
+    <section class="section section-off-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Пилот</div>
+                <div>
+                    <h2 class="section-title">Два варианта старта</h2>
+                    <p class="section-description">Выбор канала зависит от приоритетной аудитории и задач первого этапа.</p>
+                </div>
+            </div>
+            <table class="metrics-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Email</th>
+                        <th>LinkedIn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Суть</td>
+                        <td>AI-персонализированные цепочки из 4 писем</td>
+                        <td>Персонализированные запросы + цепочки сообщений</td>
+                    </tr>
+                    <tr>
+                        <td>Целевые метрики</td>
+                        <td>Открытия 40%+ (бенчмарк: 60–90%), ответы 5–10%, 10+ лидов/мес</td>
+                        <td>Принятие 30%+, ответы 10–15%, 5–10 диалогов/мес</td>
+                    </tr>
+                    <tr>
+                        <td>Лучше для</td>
+                        <td>Массовый охват, быстрая проверка гипотез</td>
+                        <td>Аудитория высокого уровня (собственники, C-level)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="quote-block">
+                <p>Заход не через продажу, а через экспертную коммуникацию. Продажа — следствие доверия.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- АУДИТОРИЯ -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Аудитория</div>
+                <div>
+                    <h2 class="section-title">Два бизнес-кейса</h2>
+                    <p class="section-description">Два направления работы с разными сегментами и ценностными предложениями.</p>
+                </div>
+            </div>
+            <div class="cards-grid cards-grid-2">
+                <div class="card">
+                    <div class="card-tag">Инвесторы</div>
+                    <h3 class="card-title">Частные инвесторы</h3>
+                    <p class="card-text">Предприниматели и топ-менеджеры с капиталом от €150 тыс. Потенциал — €400 тыс./мес привлечённого капитала (при 2 сделках).</p>
+                </div>
+                <div class="card">
+                    <div class="card-tag">Гипотеза</div>
+                    <h3 class="card-title">B2B-клиенты</h3>
+                    <p class="card-text">Дополнительное направление: HR-директора крупных компаний — включение краткосрочной аренды в программы лояльности и мотивации сотрудников. Требует отдельной проверки.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОПЫТ -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Опыт</div>
+                <div>
+                    <h2 class="section-title">Результаты нашей команды и партнёров</h2>
+                    <p class="section-description">Кейсы по аналогичным каналам и аудиториям. Механика привлечения через email и LinkedIn одинакова для fintech, tech и недвижимости — отличается контент и профиль аудитории, которые настраиваются на этапе пилота.</p>
+                </div>
+            </div>
+            <div class="exp-grid">
+                <div class="exp-card">
+                    <div class="exp-card-project">Лизинговая компания — Email</div>
+                    <div class="exp-card-result">100+ лидов/мес</div>
+                    <div class="exp-card-detail">Открытия >90%, ответы >11%. Сотрудничество длится более 1 года.</div>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-card-project">AI-стартап — LinkedIn, инвесторы</div>
+                    <div class="exp-card-result">8 инвесторов на встречу</div>
+                    <div class="exp-card-detail">1 000 контактов → 300 коннектов → 94 диалога → 8 заинтересованных инвесторов.</div>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-card-project">Tech-компания, UK — комплексный подход</div>
+                    <div class="exp-card-result">42–57% ответов</div>
+                    <div class="exp-card-detail">Outreach + SMM + реклама + личный бренд. Стабильно 9–15 лидов в месяц.</div>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-card-project">Product Camp, Нидерланды — LinkedIn</div>
+                    <div class="exp-card-result">165 лидов</div>
+                    <div class="exp-card-detail">3 900 приглашений → 165 лидов. CPL — $39.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЛЕДУЮЩИЙ ШАГ -->
+    <section class="section section-warm">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Следующий шаг</div>
+                <div>
+                    <h2 class="section-title">Как начать</h2>
+                </div>
+            </div>
+            <div class="cta-block">
+                <h3>Четыре шага к запуску пилота</h3>
+                <ol class="cta-list">
+                    <li>Выбрать канал для пилота — email или LinkedIn</li>
+                    <li>Согласовать целевые сегменты — инвесторы, B2B или оба</li>
+                    <li>Определить дату старта — при запуске в марте первые результаты к апрелю, масштабирование к высокому сезону</li>
+                    <li>Провести стартовую сессию — профиль инвестора, материалы, настройка</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                hello@go2ai.ru · <a href="https://t.me/go2ai_team" target="_blank">t.me/go2ai_team</a> · <a href="https://go2ai.ru" target="_blank">go2ai.ru</a>
+            </div>
+            <div class="footer-right">Февраль 2026</div>
+        </div>
+    </footer>
+
+</body>
+</html>
