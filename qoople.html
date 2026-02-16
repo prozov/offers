@@ -152,6 +152,10 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        .section-dark .section-title {
+            color: var(--white);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -650,6 +654,40 @@
             margin-bottom: 32px;
         }
 
+        .retarget-bar {
+            margin-top: -32px;
+            margin-bottom: 64px;
+            background: var(--accent-light);
+            border: 1px dashed var(--accent);
+            border-radius: 4px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .retarget-bar-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .retarget-bar-text {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .retarget-bar-line {
+            flex: 1;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.3;
+        }
+
         /* ===== ANIMATIONS ===== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -818,10 +856,10 @@
                     <div class="card-number">01</div>
                     <div class="card-tag">Пилот</div>
                     <h3 class="card-title">Один канал</h3>
-                    <p class="card-text">Email или LinkedIn, 50–100 контактов. Проверка гипотез и настройка воронки.</p>
+                    <p class="card-text">Email или LinkedIn, 500–1 500 контактов. Проверка гипотез и настройка воронки.</p>
                     <div class="card-meta">
                         <div class="card-meta-item">Срок: <span>4–6 нед.</span></div>
-                        <div class="card-meta-item">Стоимость: <span>250–350 тыс. ₽</span></div>
+                        <div class="card-meta-item">Стоимость: <span>от 250 тыс. руб.</span></div>
                     </div>
                 </div>
                 <div class="card">
@@ -840,8 +878,7 @@
                     <h3 class="card-title">Омниканальность</h3>
                     <p class="card-text">Ретаргетинг по базе контактов из этапов 1–2 + контент-маркетинг. CPL ожидаемо ниже прямого аутрича.</p>
                     <div class="card-meta">
-                        <div class="card-meta-item">Срок: <span>По итогам этапа 2</span></div>
-                        <div class="card-meta-item">Стоимость: <span>По результатам</span></div>
+                        <div class="card-meta-item">Срок и стоимость по итогам этапа 2</div>
                     </div>
                 </div>
             </div>
@@ -888,6 +925,13 @@
                     <div class="timeline-action">Финальное касание</div>
                     <div class="timeline-channel">LinkedIn: сообщение с полезным материалом</div>
                 </div>
+            </div>
+
+            <div class="retarget-bar">
+                <div class="retarget-bar-line"></div>
+                <div class="retarget-bar-label">Параллельно: ретаргетинг</div>
+                <div class="retarget-bar-text">Реклама в Google/Яндекс — экспертный контент, аналитика, кейсы доходности. Работает с первого дня на всю базу контактов</div>
+                <div class="retarget-bar-line"></div>
             </div>
 
             <!-- Глазами инвестора -->
@@ -991,7 +1035,7 @@
     </section>
 
     <!-- ОПЫТ -->
-    <section class="section section-dark">
+    <section class="section section-warm">
         <div class="container">
             <div class="section-header">
                 <div class="section-label">Опыт</div>
@@ -1026,7 +1070,7 @@
     </section>
 
     <!-- СЛЕДУЮЩИЙ ШАГ -->
-    <section class="section section-warm">
+    <section class="section section-dark">
         <div class="container">
             <div class="section-header">
                 <div class="section-label">Следующий шаг</div>
