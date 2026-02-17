@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программа обучения ИИ для департамента продаж — Крок</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --dark: #141414;
+            --dark-gray: #1A1A1A;
+            --medium-gray: #2A2A2A;
+            --text-gray: #666666;
+            --text-light: #999999;
+            --white: #FFFFFF;
+            --off-white: #F5F5F5;
+            --accent: #00C573;
+            --accent-dark: #00A85F;
+            --accent-light: rgba(0, 197, 115, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: var(--black);
+            background: var(--white);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: var(--black);
+            background-image: radial-gradient(ellipse at 30% 50%, rgba(0, 197, 115, 0.06) 0%, transparent 60%);
+            padding: 120px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-badge {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 5.5vw, 64px);
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            max-width: 900px;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.6);
+            max-width: 640px;
+            line-height: 1.6;
+            margin-bottom: 64px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.4s forwards;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.5s forwards;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hero-meta-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .hero-meta-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 100px 80px;
+        }
+
+        .section-white { background: var(--white); }
+        .section-gray { background: var(--off-white); }
+        .section-dark {
+            background: var(--black);
+            background-image: radial-gradient(ellipse at 70% 50%, rgba(0, 197, 115, 0.04) 0%, transparent 60%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 80px;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            padding-top: 8px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--black);
+            margin-bottom: 16px;
+        }
+
+        .section-dark .section-title {
+            color: var(--white);
+        }
+
+        .section-desc {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-gray);
+        }
+
+        .section-dark .section-desc {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ===== TASK ACCENT BLOCK ===== */
+        .task-block {
+            background: var(--accent);
+            border-radius: 4px;
+            padding: 56px 64px;
+        }
+
+        .task-block p {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--white);
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        .task-block .highlight {
+            background: rgba(255,255,255,0.18);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        /* ===== SCENARIO HEADER ===== */
+        .scenario-topline {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .scenario-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+
+        .scenario-tag.price {
+            background: var(--black);
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* ===== CARDS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            padding: 40px 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .section-gray .card {
+            background: var(--white);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .card-number {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--off-white);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .section-gray .card-number {
+            color: #EBEBEB;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .card-desc li {
+            margin-bottom: 6px;
+            list-style: none;
+            position: relative;
+            padding-left: 14px;
+        }
+
+        .card-desc li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ===== CARD SUPPLEMENT ===== */
+        .card-supplement {
+            margin-top: 32px;
+        }
+
+        .supplement-block {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            padding: 32px;
+        }
+
+        .section-gray .supplement-block {
+            background: var(--white);
+        }
+
+        .supplement-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-dark);
+            margin-bottom: 16px;
+        }
+
+        .supplement-list {
+            list-style: none;
+        }
+
+        .supplement-list li {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            padding: 6px 0;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .supplement-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 13px;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ===== SCENARIO 2: CARDS WITH DROPDOWN ===== */
+        .prep-block {
+            background: var(--accent-light);
+            border: 1px solid rgba(0, 197, 115, 0.2);
+            border-radius: 4px;
+            padding: 32px 40px;
+            margin-bottom: 32px;
+        }
+
+        .prep-block-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .prep-block-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .meeting-card {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            padding: 40px 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-white .meeting-card {
+            background: var(--white);
+        }
+
+        .meeting-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .meeting-card .card-number {
+            color: var(--off-white);
+        }
+
+        .meeting-card-goal {
+            font-size: 14px;
+            color: var(--accent-dark);
+            font-weight: 500;
+            margin-bottom: 16px;
+            padding: 10px 16px;
+            background: var(--accent-light);
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .details-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: var(--accent-dark);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 0;
+            margin-top: 12px;
+            font-family: inherit;
+        }
+
+        .details-toggle:hover {
+            color: var(--accent);
+        }
+
+        .details-toggle .chevron {
+            transition: transform 0.3s ease;
+            font-size: 10px;
+        }
+
+        .details-toggle.open .chevron {
+            transform: rotate(180deg);
+        }
+
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .details-content.open {
+            max-height: 600px;
+        }
+
+        .details-inner {
+            padding-top: 16px;
+            border-top: 1px solid #E5E5E5;
+            margin-top: 12px;
+        }
+
+        .details-section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            margin-top: 16px;
+        }
+
+        .details-section-label:first-child {
+            margin-top: 0;
+        }
+
+        .details-inner ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .details-inner li {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            padding: 4px 0 4px 14px;
+            position: relative;
+        }
+
+        .details-inner li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .takeaway {
+            font-size: 13px;
+            color: var(--accent-dark);
+            font-weight: 500;
+            margin-top: 16px;
+            padding: 8px 12px;
+            background: var(--accent-light);
+            border-radius: 4px;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 4px;
+            border: 1px solid #E5E5E5;
+        }
+
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .metrics-table thead th {
+            background: var(--black);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 28px;
+            text-align: left;
+        }
+
+        .metrics-table thead th:not(:first-child) {
+            text-align: center;
+        }
+
+        .metrics-table tbody td {
+            padding: 20px 28px;
+            font-size: 14px;
+            color: var(--text-gray);
+            border-bottom: 1px solid #E5E5E5;
+            line-height: 1.5;
+        }
+
+        .metrics-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--black);
+            width: 200px;
+        }
+
+        .metrics-table tbody td:not(:first-child) {
+            text-align: center;
+            border-left: 1px solid #E5E5E5;
+        }
+
+        .metrics-table tbody tr:hover {
+            background: var(--off-white);
+        }
+
+        .metrics-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-price {
+            font-weight: 700;
+            color: var(--black) !important;
+            font-size: 16px !important;
+        }
+
+        .table-note {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            padding: 16px 20px;
+            background: var(--accent-light);
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* ===== TEAM CARDS ===== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .team-card {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            padding: 40px 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .team-role {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-dark);
+            margin-bottom: 12px;
+        }
+
+        .team-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .team-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* ===== EXPERIENCE CARDS ===== */
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .exp-card {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            padding: 40px 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exp-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .exp-industry {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .exp-client {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 16px;
+        }
+
+        .exp-result {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .exp-metric {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            margin-top: 12px;
+            line-height: 1.2;
+        }
+
+        .exp-metric-label {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-block {
+            background: var(--accent);
+            border-radius: 4px;
+            padding: 64px;
+        }
+
+        .cta-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 32px;
+        }
+
+        .cta-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cta-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            font-size: 16px;
+            color: var(--white);
+            line-height: 1.5;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .partnership-note {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .partnership-note p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .partnership-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 32px;
+        }
+
+        .partnership-list li {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .partnership-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 5px;
+            height: 5px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-line {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .contact-line a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .contact-line a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--black);
+            border-top: 1px solid var(--dark-gray);
+            padding: 48px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-right {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ===== PLUS/MINUS BADGES ===== */
+        .badges-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .badge-plus {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+        .badge-minus {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 170, 0, 0.1);
+            color: #b38600;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .section {
+                padding: 80px 40px;
+            }
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .cards-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .exp-grid {
+                grid-template-columns: 1fr;
+            }
+            .partnership-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 24px;
+            }
+            .hero-meta {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .section {
+                padding: 60px 24px;
+            }
+            .footer {
+                padding: 32px 24px;
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            .cta-block {
+                padding: 40px 24px;
+            }
+            .scenario-topline {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .contact-line {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">Коммерческое предложение</div>
+        <h1>Программа обучения ИИ для департамента продаж</h1>
+        <p class="hero-subtitle">Два сценария обучения: от обзорного интенсива до программы с глубоким закреплением через практику</p>
+        <div class="hero-meta">
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Дата</span>
+                <span class="hero-meta-value">17 февраля 2026</span>
+            </div>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Клиент</span>
+                <span class="hero-meta-value">Крок</span>
+            </div>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Участники</span>
+                <span class="hero-meta-value">до 16 человек</span>
+            </div>
+            <div class="hero-meta-item">
+                <span class="hero-meta-label">Подготовлено</span>
+                <span class="hero-meta-value">GO2AI</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЗАДАЧА -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Задача</div>
+                <div>
+                    <h2 class="section-title">Чему научим продавцов</h2>
+                </div>
+            </div>
+            <div class="task-block">
+                <p>Дать команде продаж конкретные инструменты для профессионального разговора с клиентами об ИИ: <span class="highlight">понимание технологий</span>, <span class="highlight">знание рынка</span>, <span class="highlight">уверенные ответы на сложные вопросы</span>. Продавец должен чётко понимать, на что он отвечает сам, а когда говорит клиенту: &laquo;Давайте организуем встречу с нашей технической командой &mdash; они посчитают под вашу задачу&raquo;.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЦЕНАРИЙ 1 -->
+    <section class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Сценарий 1</div>
+                <div>
+                    <h2 class="section-title">Интенсив &mdash; одна сессия</h2>
+                    <p class="section-desc">Оффлайн, ~120 минут (90 мин программа + 30 мин Q&A)</p>
+                </div>
+            </div>
+            <div class="scenario-topline">
+                <span class="scenario-tag">Оффлайн</span>
+                <span class="scenario-tag">~120 минут</span>
+                <span class="scenario-tag">До 16 человек</span>
+                <span class="scenario-tag price">140 000 руб.</span>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-number">01</div>
+                    <div class="card-title">Технологии</div>
+                    <div class="card-desc" style="margin-bottom: 8px;">35 минут</div>
+                    <ul class="card-desc">
+                        <li>Как работают LLM и RAG &mdash; возможности и ограничения</li>
+                        <li>Технологии через призму продаж &mdash; какие задачи клиента решают LLM, RAG, файн-тюнинг и агенты</li>
+                        <li>Генеративный ИИ &mdash; реальные плюсы и где ожидания расходятся с реальностью</li>
+                        <li>Инфраструктура &mdash; GPU, облако vs on-premise, порядки стоимости</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-number">02</div>
+                    <div class="card-title">Рынок и навигация</div>
+                    <div class="card-desc" style="margin-bottom: 8px;">30 минут</div>
+                    <ul class="card-desc">
+                        <li>Обзор рынка &mdash; бенчмарки, российские vs мировые решения</li>
+                        <li>Матрица &laquo;задача клиента &rarr; AI-решение&raquo;</li>
+                        <li>Нишевые LLM для ключевых отраслей Крок</li>
+                        <li>Тренды &mdash; куда движется рынок</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-number">03</div>
+                    <div class="card-title">Практика продаж</div>
+                    <div class="card-desc" style="margin-bottom: 8px;">25 минут</div>
+                    <ul class="card-desc">
+                        <li>Безопасность и compliance &mdash; ФЗ-152, облачные vs локальные модели</li>
+                        <li>Внутренние AI-опции Крок &mdash; как позиционировать</li>
+                        <li>Граница компетенций продавца &mdash; когда отвечаем сами, когда передаём техкоманде</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-supplement">
+                <div class="cards-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="supplement-block">
+                        <div class="supplement-title">Блок Q&A &mdash; 30 мин</div>
+                        <ul class="supplement-list">
+                            <li>Разбор клиентских сценариев и типичных возражений</li>
+                            <li>Открытая дискуссия</li>
+                        </ul>
+                    </div>
+                    <div class="supplement-block">
+                        <div class="supplement-title">Что получают участники</div>
+                        <ul class="supplement-list">
+                            <li>Презентация сессии</li>
+                            <li>Матрица &laquo;задача клиента &rarr; AI-решение&raquo; (распечатка)</li>
+                            <li>Памятка продавца &mdash; ключевые тезисы, терминология, ответы на типичные вопросы</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="badges-row">
+                <span class="badge-plus">Один день &mdash; минимум отвлечения</span>
+                <span class="badge-plus">Полный охват тем из ТЗ</span>
+                <span class="badge-plus">Памятка и матрица для повседневной работы</span>
+                <span class="badge-minus">Формат обзорный &mdash; для глубокого усвоения нужна доп. проработка</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЦЕНАРИЙ 2 -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Сценарий 2</div>
+                <div>
+                    <h2 class="section-title">Программа с закреплением &mdash; серия встреч</h2>
+                    <p class="section-desc">Оффлайн, 4 встречи по 60 минут (30 мин теория + 30 мин практика). Можно провести в 1 день или разбить на 2 дня.</p>
+                </div>
+            </div>
+            <div class="scenario-topline">
+                <span class="scenario-tag">Оффлайн</span>
+                <span class="scenario-tag">4 &times; 60 минут</span>
+                <span class="scenario-tag">До 16 человек</span>
+                <span class="scenario-tag price">280 000 руб. (4 &times; 70 000)</span>
+            </div>
+
+            <div class="prep-block">
+                <div class="prep-block-title">Предварительная подготовка (включена в стоимость)</div>
+                <p class="prep-block-desc"><strong>Опрос продавцов</strong> &mdash; за 5&ndash;7 дней до старта: какие вопросы про ИИ чаще задают клиенты, в каких ситуациях продавец &laquo;плавает&raquo;, какие возражения слышат. Результаты определяют фокус программы.<br><br><strong>Изучение отраслей и решений Крок</strong> &mdash; изучаем публичные материалы, проводим бриф с AI-командой. Все примеры и кейсы &mdash; в контексте отраслей Крок.</p>
+            </div>
+
+            <div class="cards-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <!-- Встреча 1 -->
+                <div class="meeting-card">
+                    <div class="card-number">01</div>
+                    <div class="card-title">Технология &mdash; &laquo;что это и как работает&raquo;</div>
+                    <div class="meeting-card-goal">Цель: продавец может своими словами объяснить клиенту, что такое LLM, RAG, файн-тюнинг и агенты</div>
+                    <button class="details-toggle" onclick="toggleDetails(this)">
+                        Подробнее <span class="chevron">&#9660;</span>
+                    </button>
+                    <div class="details-content">
+                        <div class="details-inner">
+                            <div class="details-section-label">Теория &mdash; 30 мин</div>
+                            <ul>
+                                <li>Как работают LLM &mdash; модель предсказывает следующее слово, не &laquo;думает&raquo;</li>
+                                <li>RAG, файн-тюнинг, агенты &mdash; что это, зачем, чем отличается</li>
+                                <li>Генеративный ИИ для бизнеса &mdash; реальность vs ожидания</li>
+                                <li>Инфраструктура &mdash; облако vs on-premise, порядки стоимости</li>
+                            </ul>
+                            <div class="details-section-label">Закрепление &mdash; 30 мин</div>
+                            <ul>
+                                <li>Клиентские ситуации &mdash; определить технологию и обосновать</li>
+                                <li>Разбор ответов с группой</li>
+                                <li>Многократное повторение ключевых различий в разных контекстах</li>
+                            </ul>
+                            <div class="takeaway">Уносят: памятка с определениями и аналогиями для разговора с клиентом</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Встреча 2 -->
+                <div class="meeting-card">
+                    <div class="card-number">02</div>
+                    <div class="card-title">Отрасли и решения &mdash; &laquo;что предлагать клиенту&raquo;</div>
+                    <div class="meeting-card-goal">Цель: продавец понимает, какие AI-решения релевантны для клиентов в его отрасли</div>
+                    <button class="details-toggle" onclick="toggleDetails(this)">
+                        Подробнее <span class="chevron">&#9660;</span>
+                    </button>
+                    <div class="details-content">
+                        <div class="details-inner">
+                            <div class="details-section-label">Теория &mdash; 30 мин</div>
+                            <ul>
+                                <li>3&ndash;4 ключевых отрасли Крок &mdash; типичные AI-задачи и решения</li>
+                                <li>Нишевые модели &mdash; когда нужны, а когда лишнее</li>
+                                <li>Внутренние AI-опции Крок &mdash; как позиционировать</li>
+                                <li>Обзор рынка и тренды</li>
+                            </ul>
+                            <div class="details-section-label">Закрепление &mdash; 30 мин</div>
+                            <ul>
+                                <li>Работа с матрицей &laquo;задача клиента &rarr; AI-решение&raquo;</li>
+                                <li>Разбор реальных запросов из своих отраслей</li>
+                            </ul>
+                            <div class="takeaway">Уносят: матрица &laquo;задача &rarr; решение&raquo; &mdash; рабочий инструмент</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Встреча 3 -->
+                <div class="meeting-card">
+                    <div class="card-number">03</div>
+                    <div class="card-title">Практика продаж &mdash; &laquo;как отвечать на сложные вопросы&raquo;</div>
+                    <div class="meeting-card-goal">Цель: продавец уверенно отвечает на частые вопросы и знает границу своей компетенции</div>
+                    <button class="details-toggle" onclick="toggleDetails(this)">
+                        Подробнее <span class="chevron">&#9660;</span>
+                    </button>
+                    <div class="details-content">
+                        <div class="details-inner">
+                            <div class="details-section-label">Теория &mdash; 30 мин</div>
+                            <ul>
+                                <li>ИБ и compliance &mdash; ФЗ-152, трансграничная передача данных</li>
+                                <li>Типичные возражения &mdash; &laquo;ChatGPT бесплатный&raquo;, &laquo;ИИ галлюцинирует&raquo;, &laquo;секретные данные&raquo;</li>
+                                <li>Граница компетенций: что отвечаем сами, что передаём техкоманде</li>
+                            </ul>
+                            <div class="details-section-label">Закрепление &mdash; 30 мин</div>
+                            <ul>
+                                <li>Ролевые ситуации: участник-клиент vs участник-продавец</li>
+                                <li>Разбор с группой: что сработало, что нет</li>
+                            </ul>
+                            <div class="takeaway">Уносят: памятка &laquo;ТОП-вопросы клиентов и как на них отвечать&raquo;</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Встреча 4 -->
+                <div class="meeting-card">
+                    <div class="card-number">04</div>
+                    <div class="card-title">ИИ в работе продавца &mdash; &laquo;как ускорить свою работу&raquo;</div>
+                    <div class="meeting-card-goal">Цель: продавец видит 3&ndash;5 способов использовать ИИ в ежедневной работе и пробует руками</div>
+                    <button class="details-toggle" onclick="toggleDetails(this)">
+                        Подробнее <span class="chevron">&#9660;</span>
+                    </button>
+                    <div class="details-content">
+                        <div class="details-inner">
+                            <div class="details-section-label">Демонстрация &mdash; 30 мин</div>
+                            <ul>
+                                <li>Подготовка КП &mdash; с двух недель до двух часов</li>
+                                <li>Ресёрч клиента перед встречей</li>
+                                <li>Генерация идей перед сложными переговорами</li>
+                                <li>Внутренние безопасные AI-инструменты Крок</li>
+                            </ul>
+                            <div class="details-section-label">Практика &mdash; 30 мин</div>
+                            <ul>
+                                <li>Участники решают реальную задачу с помощью ИИ прямо на встрече</li>
+                            </ul>
+                            <div class="takeaway">Уносят: набор промптов и сценариев для типовых задач продавца</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="badges-row">
+                <span class="badge-plus">Глубокое усвоение с практическим закреплением</span>
+                <span class="badge-plus">Кастомизация под отрасли Крок</span>
+                <span class="badge-plus">Проверяемый результат</span>
+                <span class="badge-minus">Требует 4 слота по часу (1 или 2 дня)</span>
+                <span class="badge-minus">Стоимость выше</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- СРАВНЕНИЕ -->
+    <section class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Сравнение</div>
+                <div>
+                    <h2 class="section-title">Два сценария рядом</h2>
+                    <p class="section-desc">Выбирайте тот, который лучше подходит по задаче и бюджету</p>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table class="metrics-table">
+                    <thead>
+                        <tr>
+                            <th>Параметр</th>
+                            <th>Сценарий 1. Интенсив</th>
+                            <th>Сценарий 2. Программа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Формат</td>
+                            <td>1 сессия, 120 мин</td>
+                            <td>4 встречи по 60 мин</td>
+                        </tr>
+                        <tr>
+                            <td>Глубина</td>
+                            <td>Обзорная &mdash; формируем словарь и общее понимание</td>
+                            <td>Глубокая &mdash; закрепление через практику</td>
+                        </tr>
+                        <tr>
+                            <td>Практика</td>
+                            <td>Q&A в конце</td>
+                            <td>Интерактив 50% времени: ролевые игры, квизы</td>
+                        </tr>
+                        <tr>
+                            <td>Кастомизация</td>
+                            <td>Базовая</td>
+                            <td>Расширенная: опрос + изучение отраслей</td>
+                        </tr>
+                        <tr>
+                            <td>ИИ для работы продавца</td>
+                            <td>Упоминание в общем блоке</td>
+                            <td>Отдельная встреча с практикой руками</td>
+                        </tr>
+                        <tr>
+                            <td>Результат</td>
+                            <td>Знают термины, имеют памятку и матрицу</td>
+                            <td>Могут объяснить, предложить решение, ответить на возражения</td>
+                        </tr>
+                        <tr>
+                            <td>Сроки</td>
+                            <td>1 день</td>
+                            <td>1 день или 2 дня</td>
+                        </tr>
+                        <tr>
+                            <td>Стоимость</td>
+                            <td class="table-price">140 000 руб.</td>
+                            <td class="table-price">280 000 руб.</td>
+                        </tr>
+                        <tr>
+                            <td>За участника</td>
+                            <td>~8 750 руб.</td>
+                            <td>~17 500 руб.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-note">
+                <strong>Гибкость:</strong> стоимость сценария 2 складывается из 4 блоков по 70 000 руб. Программу можно сократить по блокам.
+            </div>
+        </div>
+    </section>
+
+    <!-- КОМАНДА -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Команда</div>
+                <div>
+                    <h2 class="section-title">Кто проводит</h2>
+                </div>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-role">Тренер</div>
+                    <div class="team-name">Юрий Караванов</div>
+                    <div class="team-desc">Федеральный спикер, преподаватель СБЕРа (Деловая Среда) и Skillbox. Соавтор курса &laquo;Нейросети для бизнеса&raquo;. Практический опыт внедрения AI-инструментов в бизнес-процессы</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-role">Консультант</div>
+                    <div class="team-name">Павел Розов</div>
+                    <div class="team-desc">Лидер ИИ-трансформаций GO2AI. Ex CPO Альфа-Банк, ПСБ. Специализация: продажа ИИ-проектов крупному бизнесу, управление трансформациями. Участвует в Q&A и дискуссии.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-role">Контент и контроль</div>
+                    <div class="team-name">Сергей Кобелев</div>
+                    <div class="team-desc">AI-стратег, партнёр GO2AI, выпускник Stanford AI Program. Опыт внедрения ИИ в S7 Airlines, Финам, Beeline, МТС, консалтинговые компании</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОПЫТ -->
+    <section class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Опыт</div>
+                <div>
+                    <h2 class="section-title">Релевантные кейсы GO2AI</h2>
+                </div>
+            </div>
+            <div class="exp-grid">
+                <div class="exp-card">
+                    <div class="exp-industry">Финансы</div>
+                    <div class="exp-client">Финам</div>
+                    <div class="exp-result">772 участника лекции, 370 обучено. Компания запустила 6 ИИ-инструментов</div>
+                    <div class="exp-metric">4 000 ч/мес.</div>
+                    <div class="exp-metric-label">экономия рабочего времени</div>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-industry">Промышленность</div>
+                    <div class="exp-client">Металлургическая компания (NDA)</div>
+                    <div class="exp-result">Двухнедельный интенсив: рост знаний с 1,9 до 3,8 из 5</div>
+                    <div class="exp-metric">NPS 85%</div>
+                    <div class="exp-metric-label">удовлетворённость участников</div>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-industry">Телеком</div>
+                    <div class="exp-client">МТС</div>
+                    <div class="exp-result">200+ процессов проанализировано, 3 образовательные программы для всех уровней</div>
+                    <div class="exp-metric">3</div>
+                    <div class="exp-metric-label">образовательные программы</div>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-industry">Консалтинг</div>
+                    <div class="exp-client">Академия Б1 (бывшая EY)</div>
+                    <div class="exp-result">Модуль GenAI вошёл в постоянную программу miniMBA</div>
+                    <div class="exp-metric">miniMBA</div>
+                    <div class="exp-metric-label">модуль GenAI в постоянной программе</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЛЕДУЮЩИЙ ШАГ -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Следующий шаг</div>
+                <div>
+                    <h2 class="section-title">Как начать</h2>
+                </div>
+            </div>
+            <div class="cta-block">
+                <div class="cta-title">Три шага к запуску</div>
+                <ol class="cta-steps">
+                    <li>
+                        <span class="step-num">1</span>
+                        <span>Выбрать сценарий и согласовать даты</span>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <span>Предоставить информацию о ключевых отраслях и AI-решениях Крок</span>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <span>Провести бриф с тренером &rarr; финализировать программу</span>
+                    </li>
+                </ol>
+
+                <div class="partnership-note">
+                    <p>Данная программа может стать первым шагом в системной ИИ-трансформации Крок на ближайшие два года. GO2AI специализируется на трансформациях через три вектора: бизнес-стратегия, технологии, культура. По мере масштабирования на другие департаменты видим потенциал для развития:</p>
+                    <ul class="partnership-list">
+                        <li>Кастомизированное обучение под роли каждого департамента</li>
+                        <li>Стратегические сессии &mdash; приоритизация AI-инициатив</li>
+                        <li>AI-платформу &mdash; безопасный корпоративный доступ к ИИ</li>
+                        <li>Пилоты AI-агентов &mdash; автоматизация с измеримым ROI</li>
+                    </ul>
+                </div>
+
+                <div class="contact-line">
+                    <a href="mailto:hello@go2ai.ru">hello@go2ai.ru</a>
+                    <a href="https://t.me/go2ai_team" target="_blank">t.me/go2ai_team</a>
+                    <a href="https://go2ai.ru" target="_blank">go2ai.ru</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-left">Коммерческое предложение &middot; Крок &times; GO2AI</div>
+        <div class="footer-right">17 февраля 2026</div>
+    </footer>
+
+    <script>
+        function toggleDetails(btn) {
+            const content = btn.nextElementSibling;
+            btn.classList.toggle('open');
+            content.classList.toggle('open');
+        }
+    </script>
+
+</body>
+</html>
