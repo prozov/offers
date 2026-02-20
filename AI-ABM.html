@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-система обогащения клиентских данных — Outreach & ABM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --dark: #141414;
+            --dark-gray: #1A1A1A;
+            --medium-gray: #2A2A2A;
+            --text-gray: #666666;
+            --text-light: #999999;
+            --white: #FFFFFF;
+            --off-white: #F5F5F5;
+            --accent: rgb(220, 170, 60);
+            --accent-light: rgba(220, 170, 60, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background: var(--white);
+            color: var(--black);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── HERO ─────────────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            background: var(--black);
+            background-image: radial-gradient(ellipse at 30% 50%, rgba(220,170,60,0.07) 0%, transparent 60%);
+            padding: 120px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 5.5vw, 64px);
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            max-width: 900px;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.55);
+            max-width: 580px;
+            line-height: 1.65;
+            margin-bottom: 64px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.4s forwards;
+        }
+
+        .hero-meta {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 40px;
+            display: flex;
+            gap: 56px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.5s forwards;
+        }
+
+        .hero-meta-item { display: flex; flex-direction: column; gap: 8px; }
+
+        .hero-meta-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .hero-meta-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* ─── SECTION BASE ─────────────────────────────────────────── */
+        section { padding: 100px 80px; }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 80px;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding-top: 6px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            color: var(--black);
+        }
+
+        .section-desc {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .section-white    { background: var(--white); }
+        .section-offwhite { background: var(--off-white); }
+        .section-dark     { background: var(--black); }
+
+        /* ─── ДИАГНОЗ: stats + narrative ──────────────────────────── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 56px;
+        }
+
+        .stat-item {
+            padding: 48px 40px;
+            border-right: 1px solid #E5E5E5;
+        }
+        .stat-item:last-child { border-right: none; }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-label { font-size: 14px; color: var(--text-gray); line-height: 1.55; }
+
+        .narrative-block p {
+            font-size: 18px;
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+            max-width: 720px;
+        }
+        .narrative-block strong { color: var(--black); font-weight: 600; }
+
+        /* ─── ТАБЛИЦА МЕТРИК ───────────────────────────────────────── */
+        .metrics-table {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #E5E5E5;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+        }
+
+        .metrics-table thead tr { background: var(--black); }
+
+        .metrics-table thead th {
+            padding: 20px 28px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--white);
+            text-align: left;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .metrics-table thead th:last-child  { border-right: none; }
+        .metrics-table thead th.col-accent  { color: var(--accent); }
+
+        .metrics-table tbody tr { transition: background 0.2s ease; }
+        .metrics-table tbody tr:hover { background: var(--off-white); }
+
+        .metrics-table tbody td {
+            padding: 20px 28px;
+            font-size: 14px;
+            color: var(--text-gray);
+            border-right: 1px solid #E5E5E5;
+            border-bottom: 1px solid #E5E5E5;
+            text-align: center;
+        }
+        .metrics-table tbody td:last-child       { border-right: none; }
+        .metrics-table tbody tr:last-child td    { border-bottom: none; }
+        .metrics-table tbody td:first-child      { font-weight: 600; color: var(--black); text-align: left; }
+
+        .metrics-table .highlight-row td {
+            background: rgba(220,170,60,0.06);
+            font-weight: 500;
+        }
+        .metrics-table .highlight-row td:first-child { font-weight: 700; }
+        .highlight-value { color: var(--accent) !important; font-weight: 700 !important; }
+
+        /* ─── КАРТОЧКИ (3-col) ─────────────────────────────────────── */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            padding: 40px 32px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+
+        .card-number {
+            font-size: 64px;
+            font-weight: 700;
+            color: #EFEFEF;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .card-title { font-size: 18px; font-weight: 600; color: var(--black); margin-bottom: 16px; }
+
+        .card-list { list-style: none; margin-top: 12px; }
+
+        .card-list li {
+            font-size: 14px;
+            color: var(--text-gray);
+            padding: 7px 0;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .card-list li:last-child { border-bottom: none; }
+
+        .card-list li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        .card-highlight {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: var(--accent-light);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        /* ─── КЕЙСЫ ────────────────────────────────────────────────── */
+        .cases-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .cases-channel { display: flex; flex-direction: column; gap: 16px; }
+
+        .channel-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .case-card {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            padding: 28px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .case-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
+
+        .case-name { font-size: 15px; font-weight: 600; color: var(--black); margin-bottom: 12px; }
+
+        .case-metrics { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .case-metric {
+            display: inline-block;
+            padding: 5px 11px;
+            background: var(--off-white);
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--black);
+        }
+        .case-metric.accent { background: var(--accent-light); }
+
+        /* ─── АРХИТЕКТУРЫ с дропдауном ────────────────────────────── */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 24px;
+        }
+
+        .arch-card {
+            background: var(--white);
+            border: 1px solid #E5E5E5;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease;
+        }
+        .arch-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+
+        .arch-card-head { padding: 36px 32px 28px; }
+
+        .arch-card-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #EFEFEF;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .arch-card-industry {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .arch-card-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--black);
+            line-height: 1.35;
+            margin-bottom: 12px;
+        }
+
+        .arch-card-task { font-size: 14px; color: var(--text-gray); line-height: 1.6; }
+
+        .arch-toggle {
+            width: 100%;
+            padding: 16px 32px;
+            background: none;
+            border: none;
+            border-top: 1px solid #E5E5E5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            transition: background 0.2s ease;
+        }
+        .arch-toggle:hover { background: var(--off-white); }
+
+        .arch-toggle-icon {
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+        .arch-card.open .arch-toggle-icon { transform: rotate(45deg); }
+
+        .arch-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .arch-card.open .arch-dropdown { max-height: 600px; }
+
+        .arch-dropdown-inner {
+            padding: 28px 32px 32px;
+            border-top: 1px solid #E5E5E5;
+        }
+
+        .arch-section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .arch-detail-block { margin-bottom: 22px; }
+        .arch-detail-block:last-child { margin-bottom: 0; }
+        .arch-detail-block p { font-size: 13px; color: var(--text-gray); line-height: 1.65; }
+
+        /* ─── ПРОЦЕСС (dark) ───────────────────────────────────────── */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+        }
+
+        .process-step {
+            padding-right: 48px;
+            border-right: 1px solid var(--medium-gray);
+        }
+        .process-step:nth-child(2) { padding-left: 48px; padding-right: 48px; }
+        .process-step:last-child   { padding-left: 48px; padding-right: 0; border-right: none; }
+
+        .process-num {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--medium-gray);
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .process-weeks {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .process-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .process-desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+        /* ─── CTA ──────────────────────────────────────────────────── */
+        .cta-wrap {
+            background: var(--off-white);
+            padding: 100px 80px;
+        }
+
+        .cta-block {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--accent);
+            border-radius: 4px;
+            padding: 80px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .cta-block h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .cta-block p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.82);
+            line-height: 1.65;
+            max-width: 560px;
+        }
+
+        .cta-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .cta-contact-item { display: flex; flex-direction: column; gap: 5px; }
+
+        .cta-contact-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .cta-contact-value { font-size: 15px; font-weight: 600; color: var(--white); }
+
+        /* ─── FOOTER ───────────────────────────────────────────────── */
+        footer {
+            background: var(--black);
+            border-top: 1px solid var(--dark-gray);
+            padding: 48px 80px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left  { font-size: 13px; color: rgba(255,255,255,0.35); }
+        .footer-right { font-size: 13px; color: rgba(255,255,255,0.55); }
+
+        /* ─── RESPONSIVE ───────────────────────────────────────────── */
+        @media (max-width: 1024px) {
+            .hero { padding: 80px 40px; }
+            section { padding: 80px 40px; }
+            .cta-wrap { padding: 80px 40px; }
+            footer { padding: 48px 40px; }
+
+            .section-header { grid-template-columns: 1fr; gap: 24px; }
+            .cards-grid, .arch-grid { grid-template-columns: 1fr; }
+            .cases-wrapper { grid-template-columns: 1fr; }
+
+            .stats-row { grid-template-columns: 1fr; }
+            .stat-item { border-right: none; border-bottom: 1px solid #E5E5E5; }
+            .stat-item:last-child { border-bottom: none; }
+
+            .process-grid { grid-template-columns: 1fr; }
+            .process-step,
+            .process-step:nth-child(2),
+            .process-step:last-child {
+                padding: 32px 0;
+                border-right: none;
+                border-bottom: 1px solid var(--medium-gray);
+            }
+            .process-step:last-child { border-bottom: none; }
+
+            .cta-block { grid-template-columns: 1fr; gap: 48px; padding: 56px 48px; }
+            .cta-contact { text-align: left; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 60px 24px; }
+            section { padding: 60px 24px; }
+            .cta-wrap { padding: 60px 24px; }
+            footer { padding: 40px 24px; }
+
+            .hero h1 { font-size: 36px; }
+            .hero-meta { flex-direction: column; gap: 24px; }
+            .cta-block { padding: 40px 28px; }
+            .cta-block h2 { font-size: 26px; }
+            .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+<div class="hero">
+    <div class="hero-badge">AI Data Enrichment</div>
+    <h1>Холодный outreach работает ровно так, как устроены данные в нём.</h1>
+    <p class="hero-subtitle">Система AI-обогащения клиентских данных — персонализация в масштабе 1 000+ аккаунтов для Outreach и ABM.</p>
+    <div class="hero-meta">
+        <div class="hero-meta-item">
+            <span class="hero-meta-label">Применение</span>
+            <span class="hero-meta-value">B2B Outreach & ABM</span>
+        </div>
+        <div class="hero-meta-item">
+            <span class="hero-meta-label">Следующий шаг</span>
+            <span class="hero-meta-value">Демо-сессия — 45 минут</span>
+        </div>
+        <div class="hero-meta-item">
+            <span class="hero-meta-label">Сайт</span>
+            <span class="hero-meta-value">go2ai.ru</span>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ ДИАГНОЗ ════════════════════════════════════════════════════════ -->
+<section class="section-white">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Диагноз</div>
+            <div>
+                <h2 class="section-title">21 000 писем. 33 ответа. 0 сделок.</h2>
+                <p class="section-desc">B2B-компания два года системно занималась cold outreach. Две волны рассылок, ~10 000 сообщений каждая, хорошая база, нормальная команда. Reply rate — 1.3%. Сделок — ноль. Это не история про плохих продавцов.</p>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-number">80–120</div>
+                <div class="stat-label">холодных сообщений в неделю получает среднестатистический ЛПР</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1–3%</div>
+                <div class="stat-label">reply rate у generic email-рассылок — в лучшем случае</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">30–60 мин</div>
+                <div class="stat-label">занимает ручное исследование одной компании у продавца</div>
+            </div>
+        </div>
+
+        <div class="narrative-block">
+            <p>Шаблон «уважаемый [ИМЯ], мы помогаем компаниям вашей отрасли...» — это не персонализация. Это иллюзия персонализации. ЛПР видит такие письма десятками в день и научился их распознавать за 2 секунды.</p>
+            <p><strong>Причина не в канале. Причина в данных.</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ РЕШЕНИЕ ════════════════════════════════════════════════════════ -->
+<section class="section-offwhite">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Решение</div>
+            <div>
+                <h2 class="section-title">От рассылки к обогащённому ABM</h2>
+                <p class="section-desc">Account-Based Marketing существовал всегда. AI-обогащение снимает единственный компромисс — между точностью и масштабом.</p>
+            </div>
+        </div>
+
+        <table class="metrics-table">
+            <thead>
+                <tr>
+                    <th>Подход</th>
+                    <th>Охват</th>
+                    <th>Персонализация</th>
+                    <th class="col-accent">Конверсия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Массовый outreach</td>
+                    <td>10 000+ компаний</td>
+                    <td>0–5%</td>
+                    <td>1–3% reply</td>
+                </tr>
+                <tr>
+                    <td>Ручной ABM</td>
+                    <td>50–200 компаний</td>
+                    <td>100%</td>
+                    <td>15–30% reply</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td>AI-обогащённый outreach</td>
+                    <td>1 000–5 000 компаний</td>
+                    <td class="highlight-value">85%+</td>
+                    <td class="highlight-value">5–15% reply</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ═══ КАК РАБОТАЕТ ══════════════════════════════════════════════════ -->
+<section class="section-white">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Как работает</div>
+            <div>
+                <h2 class="section-title">Три слоя системы</h2>
+                <p class="section-desc">От сбора сырых данных из 10+ источников до персонализированного сообщения — автоматически, в нужном канале.</p>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-number">01</div>
+                <div class="card-tag">Collect</div>
+                <div class="card-title">Сбор данных из 10+ источников</div>
+                <ul class="card-list">
+                    <li>LinkedIn — структура, размер, контакты ЛПР</li>
+                    <li>SPARK / Seldon — выручка, динамика, регионы</li>
+                    <li>Новости — рост, смена руководства, события</li>
+                    <li>Сайт компании — ценности, партнёры, вакансии</li>
+                    <li>Отраслевые реестры — сертификаты, ассоциации</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-number">02</div>
+                <div class="card-tag">Enrich</div>
+                <div class="card-title">13-блочный профиль компании</div>
+                <ul class="card-list">
+                    <li>Отрасль, размер, выручка, регионы</li>
+                    <li>ЛПР: должность, контакты, публичные позиции</li>
+                    <li>Цепочка принятия решений</li>
+                    <li>Текущие боли по отрасли и роли</li>
+                    <li>Триггеры: рост, найм, инвестиции, события</li>
+                    <li>Конкуренты, CSR, релевантность 0–100</li>
+                </ul>
+                <div class="card-highlight">от 5 минут на компанию вместо 30–60</div>
+            </div>
+            <div class="card">
+                <div class="card-number">03</div>
+                <div class="card-tag">Personalize & Deliver</div>
+                <div class="card-title">Сообщение, которое читают</div>
+                <ul class="card-list">
+                    <li>Конкретный триггер из жизни компании</li>
+                    <li>Боль по роли ЛПР, а не по отрасли в целом</li>
+                    <li>Релевантный продукт или формат сотрудничества</li>
+                    <li>Нужный тон: email / LinkedIn / мессенджер</li>
+                    <li>Трекинг ответов → CRM → follow-up сиквенс</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ДОКАЗАТЕЛЬСТВА ════════════════════════════════════════════════ -->
+<section class="section-offwhite">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Доказательства</div>
+            <div>
+                <h2 class="section-title">Когда персонализация реальная — цифры другие</h2>
+                <p class="section-desc">Кейсы партнёрских агентств, специализирующихся на B2B outreach. AI-обогащение масштабирует то, что уже доказано на практике.</p>
+            </div>
+        </div>
+
+        <div class="cases-wrapper">
+            <div class="cases-channel">
+                <div class="channel-label">Email Outreach — Open Buro</div>
+                <div class="case-card">
+                    <div class="case-name">Forbes Club — CEO и основатели компаний</div>
+                    <div class="case-metrics">
+                        <span class="case-metric accent">150+ MQL за 2 месяца</span>
+                        <span class="case-metric">&gt;80% open rate</span>
+                        <span class="case-metric">&gt;8% reply rate</span>
+                        <span class="case-metric">10 000 сообщений</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Лизинговая компания</div>
+                    <div class="case-metrics">
+                        <span class="case-metric accent">&gt;11% reply rate</span>
+                        <span class="case-metric">100+ лидов/мес</span>
+                        <span class="case-metric">&gt;90% open rate</span>
+                        <span class="case-metric">партнёрство 1+ год</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Геймдев-маркетплейс</div>
+                    <div class="case-metrics">
+                        <span class="case-metric accent">300+ MQL/месяц</span>
+                        <span class="case-metric">30 000+ отправок/мес</span>
+                        <span class="case-metric">&gt;60% open rate</span>
+                        <span class="case-metric">партнёрство 1.5 года</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cases-channel">
+                <div class="channel-label">LinkedIn Outreach — Link Social</div>
+                <div class="case-card">
+                    <div class="case-name">UK Tech — личный бренд основателя</div>
+                    <div class="case-metrics">
+                        <span class="case-metric accent">42–57% response rate</span>
+                        <span class="case-metric">9–15 лидов/мес</span>
+                        <span class="case-metric">рост аудитории профиля</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Global Transfers — выставочный трафик</div>
+                    <div class="case-metrics">
+                        <span class="case-metric accent">52% конверсия</span>
+                        <span class="case-metric">73 лида за кампанию</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Branding UGC Agency</div>
+                    <div class="case-metrics">
+                        <span class="case-metric accent">140% выполнения плана</span>
+                        <span class="case-metric">552 новых контакта</span>
+                        <span class="case-metric">все KPI перевыполнены</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ АРХИТЕКТУРЫ ════════════════════════════════════════════════════ -->
+<section class="section-white">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Архитектуры</div>
+            <div>
+                <h2 class="section-title">Что мы проектируем</h2>
+                <p class="section-desc">Три отраслевых прототипа — разные задачи, один принцип. Система адаптирует источники, структуру профиля и угол персонализации под каждую вертикаль.</p>
+            </div>
+        </div>
+
+        <div class="arch-grid">
+            <div class="arch-card" id="arch1">
+                <div class="arch-card-head">
+                    <div class="arch-card-number">01</div>
+                    <div class="arch-card-industry">Healthcare / B2B Equipment</div>
+                    <div class="arch-card-title">Выход на главврачей и эпидемиологов медучреждений</div>
+                    <p class="arch-card-task">Персонализация по типу учреждения, роли ЛПР и требованиям регулятора.</p>
+                </div>
+                <button class="arch-toggle" onclick="toggleArch('arch1')">
+                    Подробнее <span class="arch-toggle-icon">+</span>
+                </button>
+                <div class="arch-dropdown">
+                    <div class="arch-dropdown-inner">
+                        <div class="arch-detail-block">
+                            <div class="arch-section-label">Что исследует система</div>
+                            <p>Профиль учреждения (тип, мощность, регион), история проверок и предписаний, структура закупочного комитета, соответствие нормативным требованиям (СанПиН).</p>
+                        </div>
+                        <div class="arch-detail-block">
+                            <div class="arch-section-label">Персонализация</div>
+                            <p>Специфические риски по типу учреждения, боль по роли (главврач vs главная медсестра vs эпидемиолог), релевантные требования регулятора.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arch-card" id="arch2">
+                <div class="arch-card-head">
+                    <div class="arch-card-number">02</div>
+                    <div class="arch-card-industry">PropTech / Real Estate</div>
+                    <div class="arch-card-title">Привлечение инвесторов с чеком €130K–1M+</div>
+                    <p class="arch-card-task">Персонализация по инвестиционному профилю, языку и портфельным предпочтениям.</p>
+                </div>
+                <button class="arch-toggle" onclick="toggleArch('arch2')">
+                    Подробнее <span class="arch-toggle-icon">+</span>
+                </button>
+                <div class="arch-dropdown">
+                    <div class="arch-dropdown-inner">
+                        <div class="arch-detail-block">
+                            <div class="arch-section-label">Что исследует система</div>
+                            <p>Инвестиционный профиль (география, размер предыдущих вложений), публикации и комментарии о рынке, портфельные предпочтения, предпочтительный канал коммуникации.</p>
+                        </div>
+                        <div class="arch-detail-block">
+                            <div class="arch-section-label">Персонализация</div>
+                            <p>Доходность по аналогичным объектам в портфеле, язык коммуникации (RU / EN / TR), релевантный продукт из матрицы.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arch-card" id="arch3">
+                <div class="arch-card-head">
+                    <div class="arch-card-number">03</div>
+                    <div class="arch-card-industry">НКО / Sponsorship</div>
+                    <div class="arch-card-title">Поиск корпоративных спонсоров среди 7 000+ компаний</div>
+                    <p class="arch-card-task">Персонализация под CSR-профиль, ценности бренда и тип ЛПР.</p>
+                </div>
+                <button class="arch-toggle" onclick="toggleArch('arch3')">
+                    Подробнее <span class="arch-toggle-icon">+</span>
+                </button>
+                <div class="arch-dropdown">
+                    <div class="arch-dropdown-inner">
+                        <div class="arch-detail-block">
+                            <div class="arch-section-label">Что исследует система</div>
+                            <p>CSR-активность, история спонсорств, ценностное позиционирование, пересечение аудиторий, региональное присутствие, PR-триггеры (юбилеи, события).</p>
+                        </div>
+                        <div class="arch-detail-block">
+                            <div class="arch-section-label">Персонализация</div>
+                            <p>Конкретный спонсорский формат, совпадающий с ценностями бренда; выход на нужного ЛПР — PR-директор или финдиректор в зависимости от типа спонсорства.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ РЕЗУЛЬТАТ ═════════════════════════════════════════════════════ -->
+<section class="section-offwhite">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Результат</div>
+            <div>
+                <h2 class="section-title">Что это даёт в цифрах</h2>
+                <p class="section-desc">Пилот: 4–6 недель, 300–500 компаний из вашей базы. Стоимость обсуждается индивидуально — зависит от объёма базы, каналов и отрасли.</p>
+            </div>
+        </div>
+
+        <table class="metrics-table">
+            <thead>
+                <tr>
+                    <th>Метрика</th>
+                    <th>Без обогащения</th>
+                    <th class="col-accent">С AI-обогащением</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Reply rate</td>
+                    <td>1–3%</td>
+                    <td class="highlight-value">5–10%</td>
+                </tr>
+                <tr>
+                    <td>Лидов из 300 компаний</td>
+                    <td>3–9</td>
+                    <td class="highlight-value">15–30</td>
+                </tr>
+                <tr>
+                    <td>Сделок (конверсия 10%)</td>
+                    <td>0–1</td>
+                    <td class="highlight-value">1–3</td>
+                </tr>
+                <tr>
+                    <td>Часов продавца на исследование</td>
+                    <td>150–300 ч</td>
+                    <td class="highlight-value">10–15 ч</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ═══ ПРОЦЕСС ════════════════════════════════════════════════════════ -->
+<section class="section-dark">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Процесс</div>
+            <div>
+                <h2 class="section-title" style="color:var(--white);">Как мы работаем</h2>
+                <p class="section-desc" style="color:rgba(255,255,255,0.45);">Шесть недель от первого разговора до работающего pipeline с измеримым результатом.</p>
+            </div>
+        </div>
+
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="process-num">01</div>
+                <div class="process-weeks">Недели 1–2</div>
+                <div class="process-title">Дизайн системы</div>
+                <p class="process-desc">Профилирование целевой аудитории. Карта источников данных. Определение триггеров и болей по каждой роли ЛПР. Дизайн структуры профиля компании.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-num">02</div>
+                <div class="process-weeks">Недели 3–4</div>
+                <div class="process-title">Разработка</div>
+                <p class="process-desc">Разработка агентов обогащения. Настройка промптов генерации сообщений. Тест на 20–50 компаниях с ручной проверкой качества.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-num">03</div>
+                <div class="process-weeks">Недели 5–6</div>
+                <div class="process-title">Запуск</div>
+                <p class="process-desc">Запуск кампании. A/B-тест вариантов сообщений. Оптимизация по reply rate. Трекинг лидов в CRM. Работающий pipeline и рекомендации по масштабированию.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CTA ════════════════════════════════════════════════════════════ -->
+<div class="cta-wrap">
+    <div class="cta-block">
+        <div>
+            <h2>Бесплатная демо-сессия — 45 минут</h2>
+            <p>Берём 20–30 компаний из вашей базы. Прямо на встрече показываем, что система находит о каждой: структура, ЛПР, триггеры, персонализированное сообщение. Не презентация возможностей — демо на вашем материале.</p>
+        </div>
+        <div class="cta-contact">
+            <div class="cta-contact-item">
+                <span class="cta-contact-label">Контакт</span>
+                <span class="cta-contact-value">[ИМЯ]</span>
+            </div>
+            <div class="cta-contact-item">
+                <span class="cta-contact-label">Должность</span>
+                <span class="cta-contact-value">[ДОЛЖНОСТЬ]</span>
+            </div>
+            <div class="cta-contact-item">
+                <span class="cta-contact-label">Записаться</span>
+                <span class="cta-contact-value">[ССЫЛКА]</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════ -->
+<footer>
+    <div class="footer-inner">
+        <span class="footer-left">AI Data Enrichment — Outreach & ABM · go2ai.ru</span>
+        <span class="footer-right">Февраль 2026</span>
+    </div>
+</footer>
+
+<script>
+    function toggleArch(id) {
+        const card = document.getElementById(id);
+        card.classList.toggle('open');
+    }
+</script>
+
+</body>
+</html>
