@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-система обогащения клиентских данных — Outreach & ABM</title>
+    <title>AI-система обогащения клиентских данных — холодное привлечение & ABM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -861,6 +861,157 @@
         }
         .journey-result strong { color: var(--text-heading); }
 
+        /* ─── A/B-ТЕСТ КЕЙС ───────────────────────────────────────── */
+        .ab-test-block {
+            margin-bottom: 64px;
+            padding: 40px 48px;
+            background: var(--navy);
+            border-radius: var(--radius-lg);
+            color: var(--text-on-dark);
+        }
+        .ab-test-tag {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent-muted);
+            margin-bottom: 12px;
+        }
+        .ab-test-title {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-on-dark);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .ab-test-desc {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-on-dark-muted);
+            margin-bottom: 32px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .ab-test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .ab-result {
+            padding: 28px 32px;
+            border-radius: var(--radius-md);
+        }
+        .ab-result.ab-control {
+            background: var(--navy-mid);
+            border: 1px solid var(--navy-soft);
+        }
+        .ab-result.ab-variant {
+            background: rgba(37,99,235,0.15);
+            border: 1px solid rgba(37,99,235,0.4);
+        }
+        .ab-result-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-on-dark-muted);
+            margin-bottom: 20px;
+        }
+        .ab-result.ab-variant .ab-result-label { color: var(--accent-muted); }
+        .ab-metrics-row {
+            display: flex;
+            gap: 32px;
+        }
+        .ab-metric { display: flex; flex-direction: column; gap: 4px; }
+        .ab-metric-value {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-on-dark-muted);
+            line-height: 1;
+        }
+        .ab-metric-value.ab-accent { color: var(--accent-muted); }
+        .ab-metric-name {
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+        }
+        .ab-metric-vol {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: rgba(255,255,255,0.2);
+            margin-top: 12px;
+        }
+        .ab-test-result {
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent-muted);
+            padding-top: 20px;
+            border-top: 1px solid var(--navy-soft);
+        }
+        .benchmarks-label {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+        }
+
+        /* ─── ПОСЛЕ ПИЛОТА ─────────────────────────────────────────── */
+        .post-pilot {
+            margin-top: 48px;
+            padding-top: 40px;
+            border-top: 1px solid var(--navy-soft);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .post-pilot-option {
+            padding: 24px 28px;
+            background: var(--navy-mid);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--navy-soft);
+        }
+        .post-pilot-tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent-muted);
+            margin-bottom: 10px;
+        }
+        .post-pilot-title {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-on-dark);
+            margin-bottom: 6px;
+        }
+        .post-pilot-desc {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-on-dark-muted);
+            line-height: 1.55;
+        }
+        .post-pilot-label {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-on-dark-muted);
+            margin-bottom: 16px;
+            grid-column: 1 / -1;
+        }
+
         /* ─── RESPONSIVE ───────────────────────────────────────────── */
         @media (max-width: 1024px) {
             .hero { padding: 80px 40px; }
@@ -916,12 +1067,12 @@
 <!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
 <div class="hero">
     <div class="hero-badge">AI Data Enrichment</div>
-    <h1>Холодный outreach работает ровно так, как устроены данные в нём.</h1>
-    <p class="hero-subtitle">Система AI-обогащения клиентских данных — персонализация в масштабе 1 000+ аккаунтов для Outreach и ABM.</p>
+    <h1>Холодное привлечение клиентов работает ровно так, как устроены данные в нём.</h1>
+    <p class="hero-subtitle">Система AI-обогащения клиентских данных — персонализация в масштабе 1 000+ аккаунтов для холодного привлечения и ABM.</p>
     <div class="hero-meta">
         <div class="hero-meta-item">
             <span class="hero-meta-label">Применение</span>
-            <span class="hero-meta-value">B2B Outreach & ABM</span>
+            <span class="hero-meta-value">B2B-привлечение & ABM</span>
         </div>
         <div class="hero-meta-item">
             <span class="hero-meta-label">Следующий шаг</span>
@@ -941,7 +1092,7 @@
             <div class="section-label">Диагноз</div>
             <div>
                 <h2 class="section-title">21 000 писем. 33 ответа. 0 сделок.</h2>
-                <p class="section-desc">B2B-компания два года системно занималась cold outreach. Две волны рассылок, ~10 000 сообщений каждая, хорошая база, нормальная команда. Reply rate — 1.3%. Сделок — ноль. Это не история про плохих продавцов.</p>
+                <p class="section-desc">B2B-компания два года системно занималась холодным привлечением. Две волны рассылок, ~10 000 сообщений каждая, хорошая база, нормальная команда. Процент ответов — 1.3%. Сделок — ноль. Это не история про плохих продавцов.</p>
             </div>
         </div>
 
@@ -952,7 +1103,7 @@
             </div>
             <div class="stat-item">
                 <div class="stat-number">1–3%</div>
-                <div class="stat-label">reply rate у generic email-рассылок — в лучшем случае</div>
+                <div class="stat-label">ответов на generic email-рассылки — в лучшем случае</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number">30–60 мин</div>
@@ -983,27 +1134,27 @@
                 <tr>
                     <th>Подход</th>
                     <th>Охват</th>
-                    <th>Персонализация</th>
+                    <th>Профиль на компанию</th>
                     <th class="col-accent">Конверсия</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Массовый outreach</td>
+                    <td>Массовое привлечение</td>
                     <td>10 000+ компаний</td>
-                    <td>0–5%</td>
+                    <td>нет (шаблон)</td>
                     <td>1–3% reply</td>
                 </tr>
                 <tr>
                     <td>Ручной ABM</td>
                     <td>50–200 компаний</td>
-                    <td>100%</td>
+                    <td>30–60 мин</td>
                     <td>15–30% reply</td>
                 </tr>
                 <tr class="highlight-row">
-                    <td>AI-обогащённый outreach</td>
+                    <td>AI-обогащённое привлечение</td>
                     <td>1 000–5 000 компаний</td>
-                    <td class="highlight-value">85%+</td>
+                    <td class="highlight-value">5 мин</td>
                     <td class="highlight-value">5–15% reply</td>
                 </tr>
             </tbody>
@@ -1021,7 +1172,7 @@
                     Готовы к короткому звонку на 15 минут?
                 </div>
                 <div class="ba-footer">
-                    Время подготовки: 30–60 мин на компанию &nbsp;·&nbsp; Reply rate: 1–3%
+                    Reply rate: 1–3%
                 </div>
             </div>
 
@@ -1043,6 +1194,7 @@
                 </div>
             </div>
         </div>
+        <p style="margin-top:16px; font-size:13px; color:var(--text-tertiary); text-align:right;">Письмо отправляет менеджер клиента — от своего имени, с данными системы</p>
     </div>
 </section>
 
@@ -1093,7 +1245,7 @@
                     <li>Боль по роли ЛПР, а не по отрасли в целом</li>
                     <li>Релевантный продукт или формат сотрудничества</li>
                     <li>Нужный тон: email / LinkedIn / мессенджер</li>
-                    <li>Трекинг ответов → CRM → follow-up сиквенс</li>
+                    <li>Трекинг ответов → CRM → серия дополнительных касаний</li>
                 </ul>
             </div>
         </div>
@@ -1164,13 +1316,13 @@
             </div>
             <div class="journey-card">
                 <div class="journey-step">03</div>
-                <div class="journey-title">Ретаргетинг</div>
-                <div class="journey-desc">Встречает экспертный контент в рекламной ленте — аналитика, кейсы, полезные инсайты по его теме</div>
+                <div class="journey-title">Контент в ленте</div>
+                <div class="journey-desc">Видит аналитику и кейсы в рекламной и профессиональной ленте — контекст копится, имя становится знакомым</div>
             </div>
             <div class="journey-card">
                 <div class="journey-step">04</div>
-                <div class="journey-title">Экспертный контент</div>
-                <div class="journey-desc">Находит публикации в профессиональной ленте — присутствие без навязчивости</div>
+                <div class="journey-title">Знакомое имя — разговор</div>
+                <div class="journey-desc">ЛПР уже видел имя в письме, LinkedIn и ленте. Следующий контакт воспринимается не как холодный, а как продолжение</div>
             </div>
         </div>
 
@@ -1187,18 +1339,57 @@
             <div class="section-label">Доказательства</div>
             <div>
                 <h2 class="section-title">Когда персонализация реальная — цифры другие</h2>
-                <p class="section-desc">Реальные результаты B2B outreach-кампаний с глубокой персонализацией. AI-обогащение масштабирует то, что уже доказано на практике.</p>
+                <p class="section-desc">A/B-тест показывает разницу между шаблонным и AI-обогащённым привлечением. Ниже — бенчмарки рынка персонализированных кампаний.</p>
             </div>
         </div>
 
+        <div class="ab-test-block">
+            <div class="ab-test-tag">Кейс GO2AI — реализованный</div>
+            <div class="ab-test-title">Скаутинг AI-стартапов: шаблон vs. персонализация</div>
+            <p class="ab-test-desc">Задача: найти основателей AI-стартапов через LinkedIn-аутрич. На одной и той же аудитории запустили два подхода параллельно.</p>
+            <div class="ab-test-grid">
+                <div class="ab-result ab-control">
+                    <div class="ab-result-label">Шаблонное привлечение</div>
+                    <div class="ab-metrics-row">
+                        <div class="ab-metric">
+                            <span class="ab-metric-value">28%</span>
+                            <span class="ab-metric-name">принятых заявок</span>
+                        </div>
+                        <div class="ab-metric">
+                            <span class="ab-metric-value">21%</span>
+                            <span class="ab-metric-name">ответили</span>
+                        </div>
+                    </div>
+                    <div class="ab-metric-vol">72 сообщения</div>
+                </div>
+                <div class="ab-result ab-variant">
+                    <div class="ab-result-label">С AI-обогащением</div>
+                    <div class="ab-metrics-row">
+                        <div class="ab-metric">
+                            <span class="ab-metric-value ab-accent">53%</span>
+                            <span class="ab-metric-name">принятых заявок</span>
+                        </div>
+                        <div class="ab-metric">
+                            <span class="ab-metric-value ab-accent">47%</span>
+                            <span class="ab-metric-name">ответили</span>
+                        </div>
+                    </div>
+                    <div class="ab-metric-vol">15 сообщений</div>
+                </div>
+            </div>
+            <div class="ab-test-result">× 2 по обеим метрикам при той же аудитории</div>
+        </div>
+
+        <div class="benchmarks-label">Бенчмарки рынка — персонализированное привлечение</div>
+
         <div class="cases-wrapper">
             <div class="cases-channel">
-                <div class="channel-label">Email Outreach</div>
+                <div class="channel-label">Email-привлечение</div>
                 <div class="case-card">
                     <div class="case-name">Forbes Club — CEO и основатели компаний</div>
                     <div class="case-metrics">
-                        <span class="case-metric accent">150+ MQL за 2 месяца</span>
-                        <span class="case-metric">&gt;80% open rate</span>
+                        <span class="case-metric accent">150+ новых лидов за 2 месяца</span>
+                        <span class="case-metric">&gt;80% открытий</span>
                         <span class="case-metric">&gt;8% reply rate</span>
                         <span class="case-metric">10 000 сообщений</span>
                     </div>
@@ -1208,27 +1399,27 @@
                     <div class="case-metrics">
                         <span class="case-metric accent">&gt;11% reply rate</span>
                         <span class="case-metric">100+ лидов/мес</span>
-                        <span class="case-metric">&gt;90% open rate</span>
+                        <span class="case-metric">&gt;90% открытий</span>
                         <span class="case-metric">партнёрство 1+ год</span>
                     </div>
                 </div>
                 <div class="case-card">
                     <div class="case-name">Геймдев-маркетплейс</div>
                     <div class="case-metrics">
-                        <span class="case-metric accent">300+ MQL/месяц</span>
+                        <span class="case-metric accent">300+ лидов в месяц</span>
                         <span class="case-metric">30 000+ отправок/мес</span>
-                        <span class="case-metric">&gt;60% open rate</span>
+                        <span class="case-metric">&gt;60% открытий</span>
                         <span class="case-metric">партнёрство 1.5 года</span>
                     </div>
                 </div>
             </div>
 
             <div class="cases-channel">
-                <div class="channel-label">LinkedIn Outreach</div>
+                <div class="channel-label">LinkedIn-привлечение</div>
                 <div class="case-card">
                     <div class="case-name">UK Tech — личный бренд основателя</div>
                     <div class="case-metrics">
-                        <span class="case-metric accent">42–57% response rate</span>
+                        <span class="case-metric accent">42–57% ответивших</span>
                         <span class="case-metric">9–15 лидов/мес</span>
                         <span class="case-metric">рост аудитории профиля</span>
                     </div>
@@ -1236,14 +1427,14 @@
                 <div class="case-card">
                     <div class="case-name">Global Transfers — выставочный трафик</div>
                     <div class="case-metrics">
-                        <span class="case-metric accent">52% конверсия</span>
+                        <span class="case-metric accent">52% принятых контактов → лид</span>
                         <span class="case-metric">73 лида за кампанию</span>
                     </div>
                 </div>
                 <div class="case-card">
                     <div class="case-name">Branding UGC Agency</div>
                     <div class="case-metrics">
-                        <span class="case-metric accent">140% выполнения плана</span>
+                        <span class="case-metric accent">140% плана по новым лидам</span>
                         <span class="case-metric">552 новых контакта</span>
                         <span class="case-metric">все KPI перевыполнены</span>
                     </div>
@@ -1260,7 +1451,7 @@
             <div class="section-label">Архитектуры</div>
             <div>
                 <h2 class="section-title">Что мы проектируем</h2>
-                <p class="section-desc">Три отраслевых прототипа — разные задачи, один принцип. Система адаптирует источники, структуру профиля и угол персонализации под каждую вертикаль.</p>
+                <p class="section-desc">Три отраслевых прототипа — разные задачи, один принцип. Система адаптирует источники, структуру профиля и угол персонализации под каждую отрасль.</p>
             </div>
         </div>
 
@@ -1361,7 +1552,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Reply rate</td>
+                    <td>Ответы на письма</td>
                     <td>1–3%</td>
                     <td class="highlight-value">5–10%</td>
                 </tr>
@@ -1392,7 +1583,7 @@
             <div class="section-label">Процесс</div>
             <div>
                 <h2 class="section-title" style="color:var(--text-on-dark);">Как мы работаем</h2>
-                <p class="section-desc" style="color:var(--text-on-dark-muted);">Шесть недель от первого разговора до работающего pipeline с измеримым результатом.</p>
+                <p class="section-desc" style="color:var(--text-on-dark-muted);">Шесть недель от первого разговора до работающего потока сделок с измеримым результатом.</p>
             </div>
         </div>
 
@@ -1407,13 +1598,27 @@
                 <div class="process-num">02</div>
                 <div class="process-weeks">Неделя 2</div>
                 <div class="process-title">Разработка</div>
-                <p class="process-desc">Разработка агентов обогащения. Настройка промптов генерации сообщений. Тест на 20–50 компаниях с ручной проверкой качества.</p>
+                <p class="process-desc">Настройка системы: источники данных, логика сбора профиля, шаблоны сообщений под каждую роль ЛПР. Тест на 20–50 компаниях с ручной проверкой качества.</p>
             </div>
             <div class="process-step">
                 <div class="process-num">03</div>
                 <div class="process-weeks">Недели 3–6</div>
                 <div class="process-title">Запуск</div>
-                <p class="process-desc">Запуск кампании. A/B-тест вариантов сообщений. Оптимизация по reply rate. Трекинг лидов в CRM. Работающий pipeline и рекомендации по масштабированию.</p>
+                <p class="process-desc">Запуск кампании. A/B-тест вариантов сообщений. Оптимизация по проценту ответов. Трекинг лидов в CRM. Работающий поток сделок и рекомендации по масштабированию.</p>
+            </div>
+        </div>
+
+        <div class="post-pilot">
+            <div class="post-pilot-label">После пилота — два формата</div>
+            <div class="post-pilot-option">
+                <div class="post-pilot-tag">Вариант А</div>
+                <div class="post-pilot-title">Передаём систему вашей команде</div>
+                <p class="post-pilot-desc">Настроенная инфраструктура, документация, инструкции. Команда клиента ведёт привлечение самостоятельно.</p>
+            </div>
+            <div class="post-pilot-option">
+                <div class="post-pilot-tag">Вариант Б</div>
+                <div class="post-pilot-title">Продолжаем как аутсорс-сервис</div>
+                <p class="post-pilot-desc">Мы ведём систему дальше: обогащение, кампании, оптимизация по метрикам. Формат обсуждаем под ваши задачи.</p>
             </div>
         </div>
     </div>
@@ -1426,27 +1631,14 @@
             <h2>Бесплатная демо-сессия — 45 минут</h2>
             <p>Берём 20–30 компаний из вашей базы. Прямо на встрече показываем, что система находит о каждой: структура, ЛПР, триггеры, персонализированное сообщение. Не презентация возможностей — демо на вашем материале.</p>
         </div>
-        <div class="cta-contact">
-            <div class="cta-contact-item">
-                <span class="cta-contact-label">Контакт</span>
-                <span class="cta-contact-value">[ИМЯ]</span>
-            </div>
-            <div class="cta-contact-item">
-                <span class="cta-contact-label">Должность</span>
-                <span class="cta-contact-value">[ДОЛЖНОСТЬ]</span>
-            </div>
-            <div class="cta-contact-item">
-                <span class="cta-contact-label">Записаться</span>
-                <span class="cta-contact-value">[ССЫЛКА]</span>
-            </div>
-        </div>
+      
     </div>
 </div>
 
 <!-- ═══ FOOTER ════════════════════════════════════════════════════════ -->
 <footer>
     <div class="footer-inner">
-        <span class="footer-left">AI Data Enrichment — Outreach & ABM · go2ai.ru</span>
+        <span class="footer-left">AI Data Enrichment — холодное привлечение & ABM · go2ai.ru</span>
         <span class="footer-right">Февраль 2026</span>
     </div>
 </footer>
