@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модуль маскирования данных</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --white: #FFFFFF;
+            --surface: #F7F8FA;
+            --gray-100: #EEF0F4;
+            --gray-200: #E2E5EB;
+            --gray-300: #D1D5DC;
+            --navy: #0F1A2E;
+            --navy-mid: #1E293B;
+            --navy-soft: #334155;
+            --accent: #2563EB;
+            --accent-hover: #1D4ED8;
+            --accent-light: #EFF6FF;
+            --accent-muted: #93C5FD;
+            --text-heading: #0F172A;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --text-tertiary: #94A3B8;
+            --text-on-dark: #FFFFFF;
+            --text-on-dark-muted: rgba(255,255,255,.55);
+            --success: #059669;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --font-heading: 'Onest', system-ui, sans-serif;
+            --font-body: 'Golos Text', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --shadow-xs: 0 1px 2px rgba(15,23,42,.04);
+            --shadow-sm: 0 1px 3px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
+            --shadow-md: 0 4px 16px rgba(15,23,42,.06);
+            --shadow-lg: 0 12px 40px rgba(15,23,42,.08);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            background: var(--white);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: var(--navy);
+            background-image: radial-gradient(ellipse at 30% 80%, rgba(37,99,235,0.05) 0%, transparent 60%);
+            padding: 120px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero-inner { max-width: 1120px; margin: 0 auto; width: 100%; }
+        .hero-badge {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.06;
+            letter-spacing: -1.8px;
+            color: var(--text-on-dark);
+            max-width: 780px;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+        .hero-subtitle {
+            font-family: var(--font-body);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-on-dark-muted);
+            max-width: 640px;
+            margin-bottom: 56px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.4s forwards;
+        }
+        .hero-meta {
+            display: flex;
+            gap: 48px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 32px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.5s forwards;
+        }
+        .hero-meta-item {}
+        .hero-meta-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-on-dark-muted);
+            margin-bottom: 6px;
+        }
+        .hero-meta-value {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-on-dark);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section { padding: 100px 80px; }
+        .section-white { background: var(--white); }
+        .section-surface { background: var(--surface); }
+        .section-navy { background: var(--navy); }
+        .container { max-width: 1120px; margin: 0 auto; }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 80px;
+            margin-bottom: 64px;
+        }
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+        }
+        .section-navy .section-label { color: var(--accent-muted); }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            color: var(--text-heading);
+            margin-bottom: 16px;
+        }
+        .section-navy .section-title { color: var(--text-on-dark); }
+        .section-desc {
+            font-family: var(--font-body);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        .section-navy .section-desc { color: var(--text-on-dark-muted); }
+
+        /* ===== CARDS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .section-white .card { background: var(--surface); }
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--gray-300);
+        }
+        .card-number {
+            font-family: var(--font-heading);
+            font-size: 64px;
+            font-weight: 800;
+            color: var(--gray-100);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--text-heading);
+            margin-bottom: 10px;
+        }
+        .card-text {
+            font-family: var(--font-body);
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .card-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+        }
+
+        /* ===== PIPELINE ===== */
+        .pipeline {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin-bottom: 48px;
+        }
+        .pipeline-step {
+            flex: 1;
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 24px 20px;
+            text-align: center;
+            margin-right: 32px;
+        }
+        .pipeline-step:last-child { margin-right: 0; }
+        .pipeline-step::after {
+            content: '\2192';
+            position: absolute;
+            right: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: var(--text-tertiary);
+        }
+        .pipeline-step:last-child::after { display: none; }
+        .pipeline-step-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .pipeline-step-title {
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 6px;
+        }
+        .pipeline-step-desc {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-tertiary);
+            line-height: 1.4;
+        }
+
+        /* ===== INFO BLOCK ===== */
+        .info-block {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin-top: 0;
+        }
+        .info-block-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 8px;
+        }
+        .info-block-text {
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== METRICS TABLE ===== */
+        .metrics-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+        .metrics-table thead th {
+            background: var(--navy);
+            color: var(--text-on-dark);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 24px;
+            text-align: left;
+        }
+        .metrics-table tbody td {
+            padding: 20px 24px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--gray-200);
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        .metrics-table tbody tr:last-child td { border-bottom: none; }
+        .metrics-table tbody tr:hover td { background: var(--surface); }
+        .metrics-table .row-label {
+            font-weight: 600;
+            color: var(--text-heading);
+            min-width: 200px;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .compare-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+        .compare-table thead th {
+            background: var(--navy);
+            color: var(--text-on-dark);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 20px;
+            text-align: center;
+        }
+        .compare-table thead th:first-child { text-align: left; }
+        .compare-table tbody td {
+            padding: 16px 20px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--gray-200);
+            text-align: center;
+            vertical-align: middle;
+        }
+        .compare-table tbody td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+        .compare-table tbody tr:last-child td { border-bottom: none; }
+        .compare-table tbody tr:hover td { background: var(--surface); }
+        .compare-table .check { color: var(--success); font-size: 18px; }
+        .compare-table .cross { color: var(--danger); font-size: 18px; }
+        .compare-table .partial { color: var(--warning); font-size: 13px; }
+        .compare-table .highlight-col {
+            background: var(--accent-light);
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .compare-table thead .highlight-col {
+            background: var(--accent);
+            color: var(--text-on-dark);
+        }
+
+        /* ===== BIG NUMBERS ===== */
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+        .number-item {
+            border-bottom: 1px solid var(--navy-soft);
+            padding-bottom: 32px;
+        }
+        .number-value {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent-muted);
+            margin-bottom: 8px;
+        }
+        .number-label {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-on-dark);
+            margin-bottom: 4px;
+        }
+        .number-desc {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-on-dark-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== CTA BLOCK ===== */
+        .cta-block {
+            background: rgba(255,255,255,.14);
+            border: 1px solid rgba(255,255,255,.22);
+            border-radius: var(--radius-lg);
+            padding: 36px 48px;
+            margin-top: 64px;
+        }
+        .cta-title {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-on-dark);
+            margin-bottom: 20px;
+        }
+        .cta-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .cta-step-num {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent-muted);
+            margin-bottom: 6px;
+        }
+        .cta-step-text {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--text-on-dark);
+            line-height: 1.5;
+        }
+        .cta-step-detail {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-on-dark-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== CHAR TABLE ===== */
+        .chars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .char-item {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .section-white .char-item { background: var(--surface); }
+        .char-item:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--gray-300);
+        }
+        .char-label {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+        }
+        .char-value {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 4px;
+        }
+        .char-desc {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--navy);
+            border-top: 1px solid var(--navy-soft);
+            padding: 48px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-left {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--text-on-dark-muted);
+        }
+        .footer-right {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .section { padding: 80px 40px; }
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .cards-grid { grid-template-columns: 1fr; }
+            .chars-grid { grid-template-columns: 1fr; }
+            .numbers-grid { grid-template-columns: 1fr; }
+            .pipeline { flex-direction: column; gap: 16px; }
+            .pipeline-step { margin-right: 0; }
+            .pipeline-step::after {
+                content: '\2193';
+                right: auto;
+                left: 50%;
+                top: auto;
+                bottom: -12px;
+                transform: translateX(-50%);
+            }
+            .cta-steps { grid-template-columns: 1fr 1fr; }
+            .compare-table { font-size: 12px; }
+            .compare-table thead th, .compare-table tbody td { padding: 12px 12px; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 60px 24px; }
+            .hero h1 { font-size: 36px; letter-spacing: -1px; }
+            .hero-meta { flex-direction: column; gap: 20px; }
+            .section { padding: 60px 24px; }
+            .section-title { font-size: 28px; }
+            .footer { padding: 32px 24px; flex-direction: column; gap: 16px; }
+            .cta-block { padding: 24px; }
+            .cta-steps { grid-template-columns: 1fr; }
+            .metrics-table, .compare-table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Presale Technical Description</div>
+            <h1>Модуль маскирования данных</h1>
+            <p class="hero-subtitle">AI работает с документами вашей компании. Персональные данные клиентов никогда не покидают периметр. Проекты, заблокированные службой безопасности, переходят в статус «разрешено с технической защитой».</p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">Дата</div>
+                    <div class="hero-meta-value">Март 2026</div>
+                </div>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">Аудитория</div>
+                    <div class="hero-meta-value">CIO & CISO</div>
+                </div>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">Отрасль</div>
+                    <div class="hero-meta-value">Финансовый сектор</div>
+                </div>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">Развёртывание</div>
+                    <div class="hero-meta-value">On-premise</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: PROBLEM -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Проблема</div>
+                <div>
+                    <h2 class="section-title">Три барьера блокируют AI в инвестиционной компании</h2>
+                    <p class="section-desc">60-80% данных, с которыми работают аналитики, содержат ПДн клиентов. Это делает использование внешних AI-сервисов юридически невозможным без технической защиты.</p>
+                </div>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-number">01</div>
+                    <div class="card-tag">Регуляторный</div>
+                    <div class="card-title">Штрафы до 500 млн руб. и уголовная ответственность</div>
+                    <div class="card-text">ФЗ-152 запрещает передачу ПДн третьим лицам. Требования ЦБ РФ (683-П, 684-П) ужесточают контроль. Каждый запрос к внешнему LLM с клиентскими данными — потенциальное нарушение.</div>
+                </div>
+                <div class="card">
+                    <div class="card-number">02</div>
+                    <div class="card-tag">Организационный</div>
+                    <div class="card-title">CISO блокирует все AI-инициативы</div>
+                    <div class="card-text">У службы безопасности нет технического инструмента, позволяющего дать формальное разрешение на использование AI с клиентскими данными. Результат: все проекты заморожены на согласовании.</div>
+                </div>
+                <div class="card">
+                    <div class="card-number">03</div>
+                    <div class="card-tag">Конкурентный</div>
+                    <div class="card-title">Финтехи уходят вперёд, сотрудники — в Shadow AI</div>
+                    <div class="card-text">Конкуренты уже используют AI для анализа и клиентского сервиса. Сотрудники используют ChatGPT с личных устройств — без контроля, аудита и защиты данных.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: HOW IT WORKS -->
+    <section class="section section-surface">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Как работает</div>
+                <div>
+                    <h2 class="section-title">Прозрачный прокси между приложением и LLM</h2>
+                    <p class="section-desc">Сервис с OpenAI-совместимым API. Подключение — смена одного URL, без изменения кода приложений.</p>
+                </div>
+            </div>
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <div class="pipeline-step-num">Шаг 1</div>
+                    <div class="pipeline-step-title">Запрос сотрудника</div>
+                    <div class="pipeline-step-desc">Текст с ФИО, ИНН, номерами счетов клиентов</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-step-num">Шаг 2</div>
+                    <div class="pipeline-step-title">Обнаружение ПДн</div>
+                    <div class="pipeline-step-desc">Три уровня детекции: нейросеть + русский NER + regex</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-step-num">Шаг 3</div>
+                    <div class="pipeline-step-title">Маскирование</div>
+                    <div class="pipeline-step-desc">ПДн заменяются на токены. Маппинг сохраняется в Redis</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-step-num">Шаг 4</div>
+                    <div class="pipeline-step-title">Запрос в LLM</div>
+                    <div class="pipeline-step-desc">Только обезличенный текст покидает периметр</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="pipeline-step-num">Шаг 5</div>
+                    <div class="pipeline-step-title">Обратная замена</div>
+                    <div class="pipeline-step-desc">Токены заменяются на реальные данные в потоке ответа</div>
+                </div>
+            </div>
+            <div class="info-block">
+                <div class="info-block-title">Сотрудник видит полный ответ с реальными данными. LLM — никогда.</div>
+                <div class="info-block-text">Персональные данные не сохраняются в модуле: маппинг в Redis удаляется автоматически после обработки запроса (TTL). Ответ приходит в потоковом режиме — без ожидания полной генерации.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: ARCHITECTURE -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Архитектура</div>
+                <div>
+                    <h2 class="section-title">Трёхуровневая детекция: defense in depth</h2>
+                    <p class="section-desc">Ни одна модель NER не даёт 100% полноты. Три независимых уровня перекрывают слепые зоны друг друга.</p>
+                </div>
+            </div>
+            <div class="cards-grid">
+                <div class="card" style="border-top: 3px solid var(--accent);">
+                    <div class="card-tag">Уровень 1 — GPU</div>
+                    <div class="card-title">Нейросеть GLiNER</div>
+                    <div class="card-text">Zero-shot NER: распознаёт ФИО, адреса, организации, произвольные типы сущностей. Новые категории данных добавляются через конфигурацию без переобучения модели. Multilingual, работает с русским языком.</div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--accent);">
+                    <div class="card-tag">Уровень 2 — CPU</div>
+                    <div class="card-title">Русский NER (Natasha)</div>
+                    <div class="card-text">Специализированная модель для русского языка. Высокая точность на именах, локациях и организациях. Компактная (~30MB), работает на CPU. F1 близок к state-of-the-art.</div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--accent);">
+                    <div class="card-tag">Уровень 3 — Regex</div>
+                    <div class="card-title">Детерминистичные правила</div>
+                    <div class="card-text">100% точность на структурированных форматах: серия/номер паспорта РФ, ИНН (10 и 12 знаков), СНИЛС, номера банковских карт и счетов, телефоны, email. Расширяются под специфику заказчика.</div>
+                </div>
+            </div>
+            <div class="chars-grid">
+                <div class="char-item">
+                    <div class="char-label">API</div>
+                    <div class="char-value">OpenAI-совместимый</div>
+                    <div class="char-desc">Drop-in замена эндпоинта для любого приложения</div>
+                </div>
+                <div class="char-item">
+                    <div class="char-label">Режим</div>
+                    <div class="char-value">Streaming</div>
+                    <div class="char-desc">Ответ в потоке, обратная замена в реальном времени</div>
+                </div>
+                <div class="char-item">
+                    <div class="char-label">Латентность</div>
+                    <div class="char-value">~1 сек</div>
+                    <div class="char-desc">Суммарно на маскирование и обратную замену</div>
+                </div>
+                <div class="char-item">
+                    <div class="char-label">LLM-провайдер</div>
+                    <div class="char-value">Любой</div>
+                    <div class="char-desc">OpenAI, Claude, self-hosted. Нет vendor lock-in</div>
+                </div>
+                <div class="char-item">
+                    <div class="char-label">Инфраструктура</div>
+                    <div class="char-value">NVIDIA A16 / A100</div>
+                    <div class="char-desc">A16 для пилота, A100 для продакшена</div>
+                </div>
+                <div class="char-item">
+                    <div class="char-label">Хранение</div>
+                    <div class="char-value">Redis (TTL)</div>
+                    <div class="char-desc">Маппинг удаляется после каждого запроса</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: COMPLIANCE -->
+    <section class="section section-surface">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Compliance</div>
+                <div>
+                    <h2 class="section-title">Что получает CISO</h2>
+                    <p class="section-desc">Техническое обоснование для формального разрешения AI. Не бумажное, а инженерное.</p>
+                </div>
+            </div>
+            <table class="metrics-table">
+                <thead>
+                    <tr>
+                        <th>Требование</th>
+                        <th>Как закрыто</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="row-label">ФЗ-152: запрет передачи ПДн</td>
+                        <td>ПДн маскируются до отправки. LLM получает только обезличенный текст. Передачи персональных данных третьим лицам не происходит</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">ЦБ РФ 683-П / 684-П</td>
+                        <td>On-premise развёртывание, данные в периметре. Маппинг с TTL, нет persistent storage ПДн. Соответствие требованиям к защите информации в финансовых организациях</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Аудит ИБ</td>
+                        <td>Логирование метаданных: timestamp, user ID, количество и типы замаскированных сущностей. Полный аудит-трейл без хранения самих ПДн</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Контроль Shadow AI</td>
+                        <td>Единая точка входа для всех AI-запросов. Сотрудники работают через корпоративный интерфейс с автоматической защитой, а не через личные устройства</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Личная ответственность CISO/DPO</td>
+                        <td>Формальное техническое обоснование: «ПДн защищены автоматическим маскированием, что подтверждается логами системы». Основание для разрешения AI-проектов</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTION 5: MARKET -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Рынок</div>
+                <div>
+                    <h2 class="section-title">Почему нет готовой альтернативы</h2>
+                    <p class="section-desc">Анализ 15+ решений на рынке. Ни одно не закрывает одновременно все требования российского финансового сектора.</p>
+                </div>
+            </div>
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Требование</th>
+                        <th>Private AI</th>
+                        <th>Skyflow</th>
+                        <th>Presidio (DIY)</th>
+                        <th class="highlight-col">GO2AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Русский язык (first-class)</td>
+                        <td><span class="partial">Частично</span></td>
+                        <td><span class="cross">&#10005;</span></td>
+                        <td><span class="partial">Через конфиг</span></td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                    </tr>
+                    <tr>
+                        <td>Российские ПДн (паспорт, ИНН, СНИЛС)</td>
+                        <td><span class="cross">&#10005;</span></td>
+                        <td><span class="cross">&#10005;</span></td>
+                        <td><span class="partial">Ручная настройка</span></td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                    </tr>
+                    <tr>
+                        <td>Обратная замена в потоке (streaming)</td>
+                        <td><span class="check">&#10003;</span></td>
+                        <td><span class="check">&#10003;</span></td>
+                        <td><span class="cross">&#10005;</span></td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                    </tr>
+                    <tr>
+                        <td>On-premise (данные в периметре)</td>
+                        <td><span class="partial">Частично</span></td>
+                        <td><span class="cross">&#10005;</span></td>
+                        <td><span class="check">&#10003;</span></td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                    </tr>
+                    <tr>
+                        <td>Готовое решение (не DIY-сборка)</td>
+                        <td><span class="check">&#10003;</span></td>
+                        <td><span class="check">&#10003;</span></td>
+                        <td><span class="cross">&#10005;</span></td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="info-block" style="margin-top: 32px;">
+                <div class="info-block-title">Запуск за недели, а не за месяцы</div>
+                <div class="info-block-text">DIY-сборка на Presidio — валидный путь при наличии ML-команды и 3+ месяцев. On-premise LLM — это $100-500K на GPU-кластер и качество ниже GPT-4o/Claude. Наш модуль даёт production-ready результат на пилоте за 2-4 недели.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: ROI + CTA (navy) -->
+    <section class="section section-navy">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Результат</div>
+                <div>
+                    <h2 class="section-title">Экономический эффект</h2>
+                    <p class="section-desc">Оценка для команды из 20 аналитиков инвестиционной компании. Считаем только прямую экономию ФОТ, без revenue impact.</p>
+                </div>
+            </div>
+            <div class="numbers-grid">
+                <div class="number-item">
+                    <div class="number-value">18-24 млн</div>
+                    <div class="number-label">Годовая экономия ФОТ</div>
+                    <div class="number-desc">Высвобождение 30-40% рабочего времени аналитиков = эквивалент 6-8 FTE</div>
+                </div>
+                <div class="number-item">
+                    <div class="number-value">< 3 мес.</div>
+                    <div class="number-label">Payback period</div>
+                    <div class="number-desc">Даже в консервативном сценарии (20% экономия времени)</div>
+                </div>
+                <div class="number-item">
+                    <div class="number-value">8x</div>
+                    <div class="number-label">Ускорение обработки</div>
+                    <div class="number-desc">Суммаризация документа: 40 мин → 5 мин. Клиентский запрос: 15 мин → 2 мин</div>
+                </div>
+            </div>
+            <div class="cta-block">
+                <div class="cta-title">Следующие шаги</div>
+                <div class="cta-steps">
+                    <div>
+                        <div class="cta-step-num">01</div>
+                        <div class="cta-step-text">Техническая встреча</div>
+                        <div class="cta-step-detail">60 мин</div>
+                    </div>
+                    <div>
+                        <div class="cta-step-num">02</div>
+                        <div class="cta-step-text">Определение scope PoC</div>
+                        <div class="cta-step-detail">Use case + данные</div>
+                    </div>
+                    <div>
+                        <div class="cta-step-num">03</div>
+                        <div class="cta-step-text">Запуск пилота</div>
+                        <div class="cta-step-detail">2-4 недели</div>
+                    </div>
+                    <div>
+                        <div class="cta-step-num">04</div>
+                        <div class="cta-step-text">Go / No-Go решение</div>
+                        <div class="cta-step-detail">На основе метрик</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-left">Presale Technical Description — Модуль маскирования данных</div>
+        <div class="footer-right">Март 2026</div>
+    </footer>
+
+</body>
+</html>
